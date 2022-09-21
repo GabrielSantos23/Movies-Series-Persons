@@ -1,15 +1,15 @@
 {
   "name": "movies_lib",
   "private": false,
+  "homepage": "https://gabs111.github.io/Movie-Series-Website/",
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://gabs111.github.io/Movie-Series-Website/",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d ",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",

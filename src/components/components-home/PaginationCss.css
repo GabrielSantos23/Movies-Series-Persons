@@ -71,7 +71,7 @@ ul.pagination li a.active {
   display: inline-block;
   width: 200px;
   white-space: nowrap;
-  overflow: hidden !important;
+  overflow: hidden;
   text-overflow: ellipsis;
   font-size: 13px;
 }
@@ -100,7 +100,7 @@ ul.pagination li a.active {
 .index p {
   width: 200px;
   white-space: nowrap;
-  overflow: hidden !important;
+  overflow: hidden;
   text-overflow: ellipsis;
   font-size: 13px;
 }

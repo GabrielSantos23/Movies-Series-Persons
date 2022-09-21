@@ -5,11 +5,11 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   base: '/vite-app-sample/',
   plugins: [react()],
+  build: {
+    chunkSizeWarningLimit: 1600,
+  },
 });
 build: {
-  /** If you set esmExternals to true, this plugins assumes that 
-    all external dependencies are ES modules */
-
   commonjsOptions: {
     esmExternals: true;
   }
