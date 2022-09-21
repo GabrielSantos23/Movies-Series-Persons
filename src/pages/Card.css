@@ -1,0 +1,31 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  max-width: 1900px;
+}
+.card-home {
+    width: 86vw;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.card h2 {
+  font-weight: 500;
+  font-size: 1em;
+  white-space: nowrap;
+  width: 200px;
+  overflow: hidden; !important; 
+  text-overflow: ellipsis;
+}
+.aaa {
+  max-width: 1900px;
+  width: 86vw;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.slick-slide > div {
+    margin: 0 ;
+  }
+  .slick-list {
+    margin: 0 ;
+  }
+  

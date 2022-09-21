@@ -1,0 +1,134 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul.pagination li {
+  display: inline-block;
+  width: 30px;
+  border: 1px solid #e2e2e2;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+}
+
+ul.pagination li a {
+  text-decoration: none;
+  color: #337ab7;
+  font-size: 20px;
+}
+
+ul.pagination li.active a {
+  color: white;
+}
+ul.pagination li.active {
+  background-color: #337ab7;
+}
+
+ul.pagination li a:hover,
+ul.pagination li a.active {
+  color: blue;
+}
+
+.page-selection {
+  width: 48px;
+  height: 30px;
+  color: #337ab7;
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.container-princ {
+  margin-left: 100px;
+  max-width: 1800px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.movie-card1 {
+  margin: 5px;
+  display: flex;
+
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.movie-card1 img {
+  width: 20%;
+}
+.movie-card1 p {
+  display: inline-block;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  font-size: 13px;
+}
+.title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  width: 78vw;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+.title span {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.Card {
+  max-width: 200px;
+}
+.index {
+  display: flex;
+  flex-direction: column;
+  margin: 2px;
+}
+.index p {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  font-size: 13px;
+}
+.input-popular {
+  background-color: #343434;
+  border: none;
+  padding: 2%;
+  border-radius: 10px 0 0 10px;
+  color: #fefefe;
+}
+.popular-button {
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fefefe;
+  border: none;
+  background-color: #2196f3;
+  border-radius: 0 10px 10px 0px;
+}
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.img360 {
+  animation: loading 2s linear infinite;
+}

@@ -1,0 +1,115 @@
+.banner {
+  padding-left: 100px;
+  height: 76vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.banner div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.banner-title {
+  background: linear-gradient(
+    89.59deg,
+    #000000 37.32%,
+    rgba(0, 0, 0, 0.73) 58%,
+    rgba(0, 0, 0, 0) 79.86%
+  );
+  height: 76vh;
+  width: 100%;
+  padding-left: 50px;
+  display: none;
+  z-index: 1;
+  font-size: 50px;
+}
+.banner-title img {
+  z-index: -1;
+  position: absolute;
+  right: 0;
+  width: 66vw;
+  height: 76vh;
+}
+
+.line {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.527);
+  z-index: 1;
+  padding-left: 50px;
+  padding-top: 110px;
+}
+.banner img {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  height: 76vh;
+  width: 66vw;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+}
+.overview2 {
+  padding-left: 50px;
+  padding-top: 250px;
+  width: 800px;
+}
+@media only screen and (max-width: 1600px) {
+  .text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .banner {
+    height: 76vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .banner-content1 {
+    margin-top: -100px;
+  }
+  .banner-title img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    opacity: 0.5;
+    height: auto;
+  }
+  .banner img {
+    opacity: 0.5;
+  }
+  .banner-title-img {
+    display: flex;
+    flex-direction: column;
+  }
+  .overview2 {
+    padding-top: 350px;
+    width: 700px;
+  }
+
+  .text-center {
+    align-items: center;
+  }
+  .banner-title {
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    padding-top: 100px;
+    z-index: 1;
+    background: transparent;
+    width: 100vw;
+  }
+  .img-banner .pc {
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: auto;
+  }
+}

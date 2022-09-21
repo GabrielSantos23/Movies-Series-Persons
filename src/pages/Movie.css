@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap');
+li {
+  list-style: none;
+}
+.movie-container {
+  display: flex;
+  flex-direction: column;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+.filter {
+  background-color: rgba(24, 22, 50, 0.7);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.content {
+  margin-left: 200px;
+}
+.content h1 {
+  font-size: 80px;
+}
+.content .status {
+  font-size: 30px;
+}
+.content h1,
+.content p {
+  padding-top: 10px;
+}
+.btns {
+  display: flex;
+}
+.btn1,
+.btn2 {
+  margin-top: 10px;
+}
+.btn1 svg {
+  font-size: 30px;
+}
+.btn1 {
+  background-color: var(--color);
+  border: none;
+  color: white;
+  width: 80px;
+  height: 50px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn2 {
+  margin-left: 3px;
+  background-color: #ff034f62;
+  border: none;
+  color: white;
+  width: 80px;
+  height: 50px;
+  border-radius: 5px;
+  font-size: 30px;
+}
+.overview {
+  font-size: 18px;
+  width: 70vh;
+  padding-bottom: 10px;
+}
+.similar {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  width: 80vw;
+  height: 325px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+.similar img {
+  margin-left: 10px;
+  width: 150px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  border-radius: 10px;
+
+  transition: 0.3s;
+}
+.similar img:hover {
+  transform: scale(1.1);
+  margin: 20px;
+  border: 1px solid var(--color);
+}
+#TabList {
+  border-bottom: none;
+}
+p {
+  font-size: 15px;
+}
+.overviewbottom {
+  width: 1000px;
+}
+@media only screen and (max-width: 1350px) {
+  .overviewbottom {
+    width: 700px;
+  }
+  .description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .movie-center {
+    justify-content: center;
+  }
+}
+@media only screen and (max-width: 950px) {
+  .description {
+    margin-left: 150px;
+  }
+}
+@media only screen and (max-width: 770px) {
+  .overviewbottom {
+    width: 600px;
+  }
+  .description {
+    margin-left: 100px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .description {
+    margin-left: 30px;
+  }
+  .overviewbottom {
+    width: 400px;
+  }
+}
