@@ -3,10 +3,13 @@
   "private": false,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://gabs111.github.io/Movie-Series-Website/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d build"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -22,6 +25,7 @@
     "bootstrap": "^5.2.1",
     "carousel-react-rcdev": "^0.0.5",
     "framer-motion": "^7.3.2",
+    "gh-pages": "^4.0.0",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-alice-carousel": "^2.6.4",
