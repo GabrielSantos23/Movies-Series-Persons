@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Router>
         <CustomSwitch>
           <Route element={<App />}>
-            <Route path='/' element={<Home />} />
+            <Route path='/Movies-Series/' element={<Home />} />
             <Route path='movie/:id' element={<Movie />} />
             <Route path='/person/:id' element={<Person />} />
             <Route path='serie/:id' element={<Serie />} />
