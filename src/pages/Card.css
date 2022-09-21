@@ -1,7 +1,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  max-width: 1900px;
+  max-width: 1901px;
 }
 .card-home {
   width: 86vw;
