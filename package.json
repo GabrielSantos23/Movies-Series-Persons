@@ -1,7 +1,6 @@
 {
   "name": "movies_lib",
   "private": false,
-  "homepage": "https://gabs111.github.io/Movie-Series-Website/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
