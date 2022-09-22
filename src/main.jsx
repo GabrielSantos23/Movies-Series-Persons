@@ -26,7 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path='/movie/:id' element={<Movie />} />
             <Route path='/serie/:id' element={<Serie />} />
             <Route path='/person/:id' element={<Person />} />
-            <Route path='MoviePages' element={<PopularMovies />} />
+            <Route path='/MoviePages' element={<PopularMovies />} />
             <Route path='SeriesPage' element={<PopularSeries />} />
             <Route path='MovieSkeleton' element={<MovieSkeleton />} />
           </Route>
