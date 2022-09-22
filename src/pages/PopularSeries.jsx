@@ -5,7 +5,7 @@ import image from '../assets/posterbackdrop.png';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import { FiSearch } from 'react-icons/fi';
-
+import { Link } from 'react-router-dom';
 import 'react-loading-skeleton/dist/skeleton.css';
 import loadingimg from '../assets/PikPng.com_microsoft-edge-logo-png_2006386.png';
 
@@ -194,7 +194,7 @@ function PopularSeries() {
               movies.map((movie, index) => (
                 <div className='index' key={index}>
                   {movie.poster_path ? (
-                    <a href={`Movies-Series/serie/${movie.id}`}>
+                    <Link to={`/serie/${movie.id}`}>
                       <img
                         style={{
                           height: '300px',
@@ -205,7 +205,7 @@ function PopularSeries() {
                         src={`${IMAGE_BASE_URL}w500${movie.poster_path}`}
                         alt=''
                       />
-                    </a>
+                    </Link>
                   ) : (
                     <img
                       width={200}

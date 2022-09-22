@@ -4,7 +4,7 @@ const imageUrl = import.meta.env.VITE_IMG;
 const formatAsPercentage = (x) => `${(Math.round(x * 10) * 5) / 100}`;
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -26,13 +26,13 @@ const SerieCardContent = ({ item }) => {
   return (
     <div className='card'>
       <div className='card-top'>
-        <a href={`serie/${item.id}`}>
+        <Link to={`serie/${item.id}`}>
           <img
             style={{ width: '98%' }}
             src={imageUrl + item.poster_path}
             alt=''
           />
-        </a>
+        </Link>
         <h2 style={{ width: '98%', marginTop: '10px' }}>{item.name}</h2>
         <div style={{ display: 'flex', gap: '10px' }}>
           <Rating
