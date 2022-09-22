@@ -63,8 +63,20 @@ const SeriesCard = () => {
   };
 
   const [series, setSeries] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const getTopRatedMovies = async (url) => {
+  useEffect(() => {
+    setTimeout(async () => {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/trending/tv/day?${apiKey}`
+      );
+      const data = await res.json();
+      setSeries(data.results);
+      setIsLoading(false);
+    });
+  }, []);
+
+  /*const getTopRatedMovies = async (url) => {
     const res = await fetch(url);
     const data = await res.json();
 
@@ -76,49 +88,79 @@ const SeriesCard = () => {
     console.log(topRatedUrl);
     getTopRatedMovies(topRatedUrl);
   }, []);
-
+*/
   return (
     <div className='container' style={{ marginBottom: '50px' }}>
-      <div style={{}}>
-        <div className='card-home'>
+      {isLoading ? null : (
+        <div style={{}}>
+          <div className='card-home'>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '20px',
+              }}
+            >
+              <h1 style={{ fontWeight: '300', fontSize: '24px' }}>
+                Trending Series
+              </h1>
+              <Link to={'/SeriesPage'}>See More</Link>
+            </div>
+            <Slider {...settings}>
+              {series.map((item) => (
+                <SerieCardContent item={item} key={item.id} />
+              ))}
+              <div style={{ height: '200px' }}>
+                <Link to={'/SeriesPage'}>
+                  <p
+                    style={{
+                      display: 'flex',
+                      backgroundColor: '#202124',
+                      width: '200px',
+                      height: '300px',
+                      borderRadius: '5px',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    See More
+                  </p>
+                </Link>
+              </div>
+            </Slider>
+          </div>
           <div
             style={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '20px',
+              backgroundImage: 'red',
+              justifyContent: 'center',
             }}
           >
-            <h1 style={{ fontWeight: '300', fontSize: '24px' }}>
-              Trending Series
-            </h1>
-            <Link to={'/SeriesPage'}>See More</Link>
-          </div>
-          <Slider {...settings}>
-            {series.map((item) => (
-              <SerieCardContent item={item} key={item.id} />
-            ))}
-            <div style={{ height: '200px' }}>
-              <Link to={'/SeriesPage'}>
-                <p
-                  style={{
-                    display: 'flex',
-                    backgroundColor: '#202124',
-                    width: '200px',
-                    height: '300px',
-                    borderRadius: '5px',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                  }}
+            <div
+              style={{
+                color: '#999',
+
+                width: '100%',
+                marginTop: '20px',
+              }}
+            >
+              <p>&copy; 2022 Gabriel Santos. All rights reserved</p>
+              <p>
+                Designed and built by me, data provided by{' '}
+                <a
+                  style={{ color: '#999', textDecoration: 'underline' }}
+                  href='https://www.themoviedb.org/'
                 >
-                  See More
-                </p>
-              </Link>
+                  TMDb
+                </a>
+                .
+              </p>
             </div>
-          </Slider>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

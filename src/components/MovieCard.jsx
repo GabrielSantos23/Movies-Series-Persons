@@ -28,9 +28,9 @@ const MovieCard = ({ item }) => {
   return (
     <div className='card' key={item.id}>
       <div className='card-top'>
-        <Link to={`movie/${item.id}`}>
+        <Link to={`/movie/${item.id}`}>
           <img
-            style={{ width: '98%', height: '300px ' }}
+            style={{ width: '98%', backgroundColor: '#202124', height: '100%' }}
             src={imageUrl + item.poster_path}
             alt=''
           />

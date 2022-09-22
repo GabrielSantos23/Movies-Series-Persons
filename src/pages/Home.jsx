@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import loading from '../assets/PikPng.com_microsoft-edge-logo-png_2006386.png';
 const Img = 'https://image.tmdb.org/t/p/w500';
-
+import Loading from '../assets/Infinity-1s-200px.svg';
 import Banner from '../components/components-home/banner';
 import './Card.css';
 import MovieCard from '../components/MovieCard';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { CaretLeft } from 'phosphor-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as Icons from 'react-icons/fa';
@@ -73,8 +73,20 @@ const Home = () => {
   };
 
   const [topMovies, setTopMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const getTopRatedMovies = async (url) => {
+  useEffect(() => {
+    setTimeout(async () => {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/trending/movie/day?${apiKey}`
+      );
+      const data = await res.json();
+      setTopMovies(data.results);
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  /* const getTopRatedMovies = async (url) => {
     const res = await fetch(url);
     const data = await res.json();
 
@@ -85,7 +97,44 @@ const Home = () => {
     const topRatedUrl = `https://api.themoviedb.org/3/trending/movie/day?${apiKey}`;
     console.log(topRatedUrl);
     getTopRatedMovies(topRatedUrl);
-  }, []);
+  }, []);*/
+
+  const PageLayout = ({ children }) => children;
+
+  const pageVariantes = {
+    initial: {
+      opacity: 0,
+    },
+    in: {
+      opacity: 1,
+    },
+    out: {
+      opacity: 0,
+    },
+  };
+
+  const pageTransition = {
+    type: 'tween',
+    ease: 'linear',
+    duration: 0.5,
+  };
+  const { pathname } = useLocation();
+
+  const AnimationLayout = () => {
+    const { pathname } = useLocation();
+    return (
+      <PageLayout>
+        <motion.div
+          key={pathname}
+          initial='initial'
+          animate='in'
+          variants={pageVariantes}
+          transition={pageTransition}
+        ></motion.div>
+      </PageLayout>
+    );
+  };
+
   const animations = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
@@ -101,67 +150,65 @@ const Home = () => {
     >
       <Banner />
       <div>
-        <div className='card-home'>
+        {isLoading ? (
           <div
             style={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '20px',
+
+              justifyContent: 'center',
+              width: '100vw',
             }}
           >
-            <h1 style={{ fontWeight: '300', fontSize: '24px' }}>
-              Trending Movies
-            </h1>
-            <Link to={'/MoviePages'}>See More</Link>
+            <img src={Loading} alt='' style={{ width: '100px' }} />
           </div>
-          <Slider {...settings}>
-            {topMovies.map((item) => (
-              <MovieCard item={item} key={item.id} />
-            ))}
-            <div style={{ height: '200px' }}>
-              <Link to={'/MoviePages'}>
-                <p
-                  style={{
-                    display: 'flex',
-                    backgroundColor: '#202124',
-                    width: '200px',
-                    height: '300px',
-                    borderRadius: '5px',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                  }}
-                >
-                  See More
-                </p>
-              </Link>
-            </div>
-          </Slider>
-        </div>
-      </div>
-
-      <SeriesCard />
-      <div
-        style={{
-          display: 'flex',
-
-          justifyContent: 'center',
-        }}
-      >
-        <div style={{ color: '#999', width: '1650px', marginBottom: '20px' }}>
-          <p>&copy; 2022 Gabriel Santos. All rights reserved</p>
-          <p>
-            Designed and built by me, data provided by{' '}
-            <a
-              style={{ color: '#999', textDecoration: 'underline' }}
-              href='https://www.themoviedb.org/'
+        ) : (
+          <motion.div
+            key={pathname}
+            initial='initial'
+            animate='in'
+            variants={pageVariantes}
+            transition={pageTransition}
+            className='card-home'
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '20px',
+              }}
             >
-              TMDb
-            </a>
-            .
-          </p>
-        </div>
+              <h1 style={{ fontWeight: '300', fontSize: '24px' }}>
+                Trending Movies
+              </h1>
+              <Link to={'/MoviePages'}>See More</Link>
+            </div>
+            <Slider {...settings}>
+              {topMovies.map((item) => (
+                <MovieCard item={item} key={item.id} />
+              ))}
+              <div style={{ height: '200px' }}>
+                <Link to={'/MoviePages'}>
+                  <p
+                    style={{
+                      display: 'flex',
+                      backgroundColor: '#202124',
+                      width: '200px',
+                      height: '300px',
+                      borderRadius: '5px',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    See More
+                  </p>
+                </Link>
+              </div>
+            </Slider>
+            <SeriesCard />
+          </motion.div>
+        )}
       </div>
     </motion.div>
   );

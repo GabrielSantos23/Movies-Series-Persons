@@ -26,7 +26,7 @@ const SerieCardContent = ({ item }) => {
   return (
     <div className='card'>
       <div className='card-top'>
-        <Link to={`serie/${item.id}`}>
+        <Link to={`/serie/${item.id}`}>
           <img
             style={{ width: '98%' }}
             src={imageUrl + item.poster_path}
