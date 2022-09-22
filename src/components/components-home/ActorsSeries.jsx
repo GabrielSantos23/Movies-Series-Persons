@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 const imageUrl = import.meta.env.VITE_IMG;
 import '../../pages/Card.css';
-
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -73,7 +73,7 @@ const Actors = () => {
               {movie.profile_path ? (
                 <img width={250} src='https://i.mydramalist.com/vEAp2_4f.jpg' />
               ) : (
-                <a href={`/person/${item.id}`}>
+                <Link to={`/person/${item.id}`}>
                   <img
                     width='250px'
                     height={350}
@@ -81,7 +81,7 @@ const Actors = () => {
                     src={imageUrl + item.profile_path}
                     alt=''
                   />
-                </a>
+                </Link>
               )}
 
               <p>{item.name}</p>

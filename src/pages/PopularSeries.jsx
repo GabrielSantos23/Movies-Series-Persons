@@ -194,7 +194,7 @@ function PopularSeries() {
               movies.map((movie, index) => (
                 <div className='index' key={index}>
                   {movie.poster_path ? (
-                    <a href={`serie/${movie.id}`}>
+                    <a href={`Movies-Series/serie/${movie.id}`}>
                       <img
                         style={{
                           height: '300px',

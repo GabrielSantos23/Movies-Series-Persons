@@ -211,7 +211,7 @@ function PopularMovies() {
               movies.map((movie, index) => (
                 <div className='index' key={index}>
                   {isLoading ? (
-                    <a href={`movie/${movie.id}`}>
+                    <a href={`Movies-Series/movie/${movie.id}`}>
                       <motion.img
                         initial={{ opacity: 0, scale: 0.99 }}
                         animate={{ opacity: 1, scale: 1 }}

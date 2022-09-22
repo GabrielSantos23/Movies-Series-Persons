@@ -1,7 +1,7 @@
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 import { makeStyles } from '@material-ui/core/styles';
-
+import { Link } from 'react-router-dom';
 const imageUrl = import.meta.env.VITE_IMG;
 
 import Rating from '@mui/material/Rating';
@@ -28,13 +28,13 @@ const MovieCard = ({ item }) => {
   return (
     <div className='card' key={item.id}>
       <div className='card-top'>
-        <a href={`movie/${item.id}`}>
+        <Link to={`movie/${item.id}`}>
           <img
             style={{ width: '98%', height: '300px ' }}
             src={imageUrl + item.poster_path}
             alt=''
           />
-        </a>
+        </Link>
         <h2 style={{ width: '98%', marginTop: '10px' }}>{item.title}</h2>
         <div className={classes.root}>
           <Rating

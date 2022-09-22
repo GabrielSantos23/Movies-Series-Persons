@@ -1,7 +1,7 @@
 import { useState, useEffect, Component } from 'react';
 import { useParams } from 'react-router-dom';
 import '../pages/Card.css';
-
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -69,7 +69,7 @@ const Actors = () => {
         {movie.map((item, index) => (
           <div key={index} className='card'>
             <div className='card-top'>
-              <a href={`/person/${item.id}`}>
+              <Link to={`/person/${item.id}`}>
                 {item.profile_path ? (
                   <img
                     width='250px'
@@ -82,7 +82,7 @@ const Actors = () => {
                     src='https://i.mydramalist.com/vEAp2_4f.jpg'
                   />
                 )}
-              </a>
+              </Link>
               <p>{item.name}</p>
               <p style={{ color: '#999' }}>{item.character}</p>
             </div>
