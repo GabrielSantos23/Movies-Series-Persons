@@ -69,7 +69,7 @@ const Sidebar2 = () => {
               className={(navData) =>
                 navData.isActive ? 'link-active' : 'link'
               }
-              to='/'
+              to='/Movies-Series-Persons'
             >
               <FiHome />
             </NavLink>
