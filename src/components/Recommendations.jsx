@@ -89,6 +89,7 @@ const Recommendations = () => {
                     {item.poster_path ? (
                       <div>
                         <img
+                          loading='lazy'
                           style={{
                             width: '98%',
                             backgroundColor: '#202124',
@@ -130,6 +131,7 @@ const Recommendations = () => {
                       </div>
                     ) : (
                       <img
+                        loading='lazy'
                         style={{
                           width: '98%',
                           backgroundColor: '#202124',

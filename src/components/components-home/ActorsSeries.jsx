@@ -73,6 +73,7 @@ const ActorsSerie = () => {
               <Link to={`/person/${item.id}`}>
                 {item.profile_path ? (
                   <img
+                    loading='lazy'
                     style={{
                       width: '98%',
                       backgroundColor: '#202124',
@@ -83,6 +84,7 @@ const ActorsSerie = () => {
                   />
                 ) : (
                   <img
+                    loading='lazy'
                     style={{
                       width: '98%',
                       backgroundColor: '#202124',

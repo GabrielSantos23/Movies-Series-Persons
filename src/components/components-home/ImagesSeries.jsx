@@ -63,6 +63,7 @@ function ImageSeries() {
               movie.map((movie, index) => (
                 <>
                   <img
+                    loading='lazy'
                     key={index}
                     style={{
                       marginBottom: 10,

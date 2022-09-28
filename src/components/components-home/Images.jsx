@@ -72,6 +72,7 @@ function Movie() {
                       rel='noopener noreferrer'
                     >
                       <img
+                        loading='lazy'
                         style={{
                           marginLeft: 2,
                           marginBottom: 0,

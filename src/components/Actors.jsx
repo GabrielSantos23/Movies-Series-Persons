@@ -10,6 +10,7 @@ const imageUrl = import.meta.env.VITE_IMG;
 const Placeholder = import.meta.env.VITE_IMG;
 import TesTEp from '../assets/posterbackdrop.png';
 const MovieUrl = import.meta.env.VITE_API;
+
 const Actors = () => {
   const settings = {
     dots: false,
@@ -50,6 +51,7 @@ const Actors = () => {
     ],
   };
   const [movie, setMovie] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getMovie = async (url) => {
     const res = await fetch(url);
@@ -60,6 +62,7 @@ const Actors = () => {
   const { id } = useParams();
   useEffect(() => {
     const movieUrl = `${MovieUrl}${id}/credits?${apiKey}`;
+    setIsLoading(false);
 
     getMovie(movieUrl);
   }, []);
@@ -72,15 +75,17 @@ const Actors = () => {
             <div className='card-top'>
               <Link to={`/person/${item.id}`}>
                 {item.profile_path ? (
-                  <img
-                    style={{
-                      width: '98%',
-                      backgroundColor: '#202124',
-                      height: '100%',
-                    }}
-                    src={imageUrl + item.profile_path}
-                    alt=''
-                  />
+                  <div>
+                    <img
+                      loading='lazy'
+                      style={{
+                        width: '98%',
+                        backgroundColor: '#202124',
+                      }}
+                      src={imageUrl + item.profile_path}
+                      alt=''
+                    />
+                  </div>
                 ) : (
                   <img
                     style={{

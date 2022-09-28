@@ -29,6 +29,7 @@ const MovieCard = ({ item }) => {
       <div className='card-top'>
         <Link to={`/movie/${item.id}`}>
           <img
+            loading='lazy'
             style={{ width: '98%' }}
             src={imageUrl + item.poster_path}
             alt=''

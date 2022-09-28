@@ -28,6 +28,7 @@ const SerieCardContent = ({ item }) => {
       <div className='card-top'>
         <Link to={`/serie/${item.id}`}>
           <img
+            loading='lazy'
             style={{ width: '98%' }}
             src={imageUrl + item.poster_path}
             alt=''

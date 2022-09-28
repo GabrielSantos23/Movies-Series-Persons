@@ -48,7 +48,7 @@ function Movie() {
             marginBottom: '10px',
           }}
         >
-          <img style={{ width: '100px' }} src={Loading} />
+          <img loading='lazy' style={{ width: '100px' }} src={Loading} />
         </div>
       ) : (
         <>
@@ -75,6 +75,7 @@ function Movie() {
                 <div key={index} style={{ marginLeft: '10px' }}>
                   {movie.file_path ? (
                     <img
+                      loading='lazy'
                       style={{
                         marginLeft: 2,
                         marginBottom: 50,

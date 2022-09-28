@@ -35,7 +35,7 @@ function Movie() {
             marginBottom: '10px',
           }}
         >
-          <img width={100} src={Loading} />
+          <img loading='lazy' width={100} src={Loading} />
         </div>
       ) : (
         <>
@@ -63,6 +63,7 @@ function Movie() {
             {movie &&
               movie.map((movie, index) => (
                 <img
+                  loading='lazy'
                   key={index}
                   style={{
                     marginLeft: 3,

@@ -11,6 +11,8 @@ import styled from '@emotion/styled';
 import '../components/components-home/PaginationCss.css';
 import { Link } from 'react-router-dom';
 import { Rating } from '@mui/material';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 const Input1 = styled.input`
   width: 400px;
   height: 40px;
@@ -216,19 +218,16 @@ function PopularMovies() {
                 <div className='index' key={movie.id}>
                   {isLoading ? (
                     <Link to={`/movie/${movie.id}`}>
-                      <motion.img
-                        initial={{ opacity: 0, scale: 0.99 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5 }}
+                      <LazyLoadImage
+                        effect='blur'
+                        className='Card'
+                        src={`${IMAGE_BASE_URL}w500${movie.poster_path}`}
                         style={{
                           backgroundColor: '#202124',
                           width: '200px',
                           border: 'none',
                           height: '300px',
                         }}
-                        className='Card'
-                        src={`${IMAGE_BASE_URL}w500${movie.poster_path}`}
-                        alt=''
                       />
                     </Link>
                   ) : (
