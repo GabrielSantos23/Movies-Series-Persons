@@ -61,10 +61,11 @@ const Actors = () => {
   };
   const { id } = useParams();
   useEffect(() => {
-    const movieUrl = `${MovieUrl}${id}/credits?${apiKey}`;
-    setIsLoading(false);
-
-    getMovie(movieUrl);
+    setTimeout(async () => {
+      const res = await fetch(`${MovieUrl}${id}/credits?${apiKey}`);
+      const data = await res.json();
+      setMovie(data.cast);
+    }, 1000);
   }, []);
 
   return (

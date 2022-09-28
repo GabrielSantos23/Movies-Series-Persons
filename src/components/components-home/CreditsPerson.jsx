@@ -42,7 +42,7 @@ const CreditsPerson = () => {
       .get(`${MovieUrl}/person/${id}/tv_credits?${apiKey}`)
       .then((response) => {
         const results = response.data.cast;
-
+        console.log(results);
         setSerie(results);
       });
   }, []);
@@ -119,7 +119,7 @@ const CreditsPerson = () => {
                 <>
                   {' '}
                   <p>{getFirstWord(serie.first_air_date)}</p>
-                  <Link to={`/serie/${movie.id}`}>
+                  <Link to={`/serie/${serie.id}`}>
                     <p>{serie.name}</p>
                   </Link>
                   <p style={{ color: '#999' }}>{serie.character}</p>
