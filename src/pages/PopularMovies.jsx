@@ -1,43 +1,49 @@
 import Skeleton from 'react-loading-skeleton';
 import React, { useState, useEffect } from 'react';
-
 import image from '../assets/posterbackdrop.png';
-
 import { FiSearch } from 'react-icons/fi';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-
 import { motion } from 'framer-motion';
 import 'react-loading-skeleton/dist/skeleton.css';
 import loadingimg from '../assets/PikPng.com_microsoft-edge-logo-png_2006386.png';
-
+import TesTEp from '../assets/posterbackdrop.png';
+import styled from '@emotion/styled';
 import '../components/components-home/PaginationCss.css';
 import { Link } from 'react-router-dom';
+import { Rating } from '@mui/material';
+const Input1 = styled.input`
+  width: 400px;
+  height: 40px;
+  border: none;
+  padding: 2%;
+  border-radius: 0px 5px 5px 0;
+  border-bottom: 3px solid #337ab7;
+  background-color: #343434;
+  color: #fff;
+  @media (max-width: 468px) {
+    width: 200px;
+  }
+`;
+
+const Button1 = styled.button`
+  width: 50px;
+  height: 40px;
+
+  border-bottom: 3px solid #337ab7;
+  padding: 2%;
+  border: none;
+  border-bottom: 3px solid #337ab7;
+  background-color: #343434;
+
+  border-radius: 5px 0 0 5px;
+`;
+
 const API_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '281d112a5f3e634a22a7bbe6657f040d';
 const IMAGE_BASE_URL = 'https://www.themoviedb.org/t/p/';
 const ORIGINAL = 'https://image.tmdb.org/t/p/original';
+const formatAsPercentage = (x) => `${(Math.round(x * 10) * 5) / 100}`;
 
-function GridCard({ image, movieName }) {
-  return (
-    <div
-      className='Card'
-      hoverable
-      style={{ margin: '1.5%' }}
-      cover={
-        <img
-          alt={movieName}
-          src={image}
-          onError={(e) => {
-            if (e.target.src !== image.poster_path) {
-              e.target.onerror = null;
-              e.target.src = 'https://i.mydramalist.com/vEAp2_4f.jpg';
-            }
-          }}
-        />
-      }
-    ></div>
-  );
-}
 function Backdrop({ image, children }) {
   return (
     <div
@@ -63,17 +69,16 @@ function Backdrop({ image, children }) {
 const SearchMenu = ({ mode, value, onChange }) => {
   return (
     <div className='searchMenu' style={{ display: 'flex' }}>
-      <input
-        className='input-popular'
+      <Button1 className=''>
+        {' '}
+        <FiSearch color='#999' fontSize={15} />
+      </Button1>
+      <Input1
         value={value}
         placeholder='What are you looking for?'
         type='search'
-        style={{ width: 400 }}
         onChange={(e) => onChange(e.target.value)}
       />
-      <button className='popular-button'>
-        <FiSearch />
-      </button>
     </div>
   );
 };
@@ -103,10 +108,10 @@ function PopularMovies() {
   useEffect(() => {
     const endpoint =
       searchTerm === ''
-        ? `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}&include_adult=false`
-        : `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${encodeURIComponent(
+        ? `${API_URL}movie/popular?language=en-US&include_adult=false&api_key=${API_KEY}&language=en-US&page=${currentPage}`
+        : `${API_URL}search/movie?language=en-US&include_adult=false&api_key=${API_KEY}&language=en-US&query=${encodeURIComponent(
             searchTerm
-          )}&page=${currentPage}&include_adult=false`;
+          )}&page=${currentPage}`;
 
     setLoading(true);
     setIsLoading(true);
@@ -116,7 +121,6 @@ function PopularMovies() {
         if (!json?.results) {
           throw new Error(json?.statusMessage ?? 'Error');
         }
-        console.log(json);
 
         setMovies((previous) =>
           currentPage === 1 ? json.results : [...previous, ...json.results]
@@ -208,8 +212,8 @@ function PopularMovies() {
             }}
           >
             {movies &&
-              movies.map((movie, index) => (
-                <div className='index' key={index}>
+              movies.map((movie) => (
+                <div className='index' key={movie.id}>
                   {isLoading ? (
                     <Link to={`/movie/${movie.id}`}>
                       <motion.img
@@ -228,13 +232,10 @@ function PopularMovies() {
                       />
                     </Link>
                   ) : (
-                    <img
-                      width={200}
-                      src='https://i.mydramalist.com/vEAp2_4f.jpg'
-                    />
+                    <img width={200} src={TesTEp} />
                   )}
 
-                  <div>
+                  <div style={{}}>
                     <motion.p
                       variants={animations}
                       initial='initial'
@@ -244,6 +245,25 @@ function PopularMovies() {
                     >
                       {movie.title}
                     </motion.p>
+
+                    <Rating
+                      precision={0.5}
+                      readOnly
+                      width={10}
+                      size='small'
+                      sx={{
+                        fontSize: '13px',
+                        color: '#1d9bf0',
+                        height: '20px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        '& .MuiRating-iconEmpty': {
+                          color: '#1d9bf0',
+                        },
+                      }}
+                      value={formatAsPercentage(movie.vote_average)}
+                    />
+                    <p style={{ color: '#999' }}>{movie.vote_average}</p>
                   </div>
                 </div>
               ))}

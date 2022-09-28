@@ -8,7 +8,7 @@ import { Link, NavLink } from 'react-router-dom';
 import './Sidebar.css';
 const Nav = styled.div`
   background-color: #000000;
-  width: 70px;
+  width: 3%;
   height: 100vh;
   border-right: 0.1px solid #99999916;
   color: #fff;
@@ -32,7 +32,7 @@ const Container = styled.div`
 `;
 const ContainerMobile = styled.div`
   position: absolute;
-  z-index: 2;
+  z-index: 100;
 `;
 const NavMobile = styled.div`
   display: none;
@@ -69,7 +69,7 @@ const Sidebar2 = () => {
               className={(navData) =>
                 navData.isActive ? 'link-active' : 'link'
               }
-              to='/Movies-Series-Persons'
+              to='/'
             >
               <FiHome />
             </NavLink>

@@ -14,48 +14,55 @@ const SocialMedia = () => {
     const data = await res.json();
 
     setMovie(data);
-    console.log(data);
   };
   const { id } = useParams();
   useEffect(() => {
     const movieUrl = `https://api.themoviedb.org/3/person/${id}/external_ids?${apiKey}`;
-    console.log(movieUrl);
+
     getMovie(movieUrl);
   }, []);
 
   return (
     <div style={{ marginTop: '2rem', color: '#fff' }}>
-      <a
-        target='_blank'
-        rel='noopener noreferrer'
-        href={`https://instagram.com/${movie.instagram_id}`}
-      >
-        <InstagramLogo size={30} />
-      </a>
-      <a
-        target='_blank'
-        rel='noopener noreferrer'
-        style={{ marginLeft: '1rem' }}
-        href={`https://facebook.com/${movie.facebook_id}`}
-      >
-        <FacebookLogo size={30} />
-      </a>
-      <a
-        target='_blank'
-        rel='noopener noreferrer'
-        style={{ marginLeft: '1rem' }}
-        href={`https://twitter.com/${movie.twitter_id}`}
-      >
-        <FaTwitter size={30} />
-      </a>
-      <a
-        target='_blank'
-        rel='noopener noreferrer'
-        style={{ marginLeft: '1rem' }}
-        href={`https://www.imdb.com/name/${movie.imdb_id}`}
-      >
-        <FaImdb size={30} />
-      </a>
+      {movie.instagram_id ? (
+        <a
+          target='_blank'
+          rel='noopener noreferrer'
+          href={`https://instagram.com/${movie.instagram_id}`}
+        >
+          <InstagramLogo size={25} />
+        </a>
+      ) : null}
+      {movie.facebook_id ? (
+        <a
+          target='_blank'
+          rel='noopener noreferrer'
+          style={{ marginLeft: '1rem' }}
+          href={`https://facebook.com/${movie.facebook_id}`}
+        >
+          <FacebookLogo size={25} />
+        </a>
+      ) : null}
+      {movie.twitter_id ? (
+        <a
+          target='_blank'
+          rel='noopener noreferrer'
+          style={{ marginLeft: '1rem' }}
+          href={`https://twitter.com/${movie.twitter_id}`}
+        >
+          <FaTwitter size={25} />
+        </a>
+      ) : null}
+      {movie.imdb_id ? (
+        <a
+          target='_blank'
+          rel='noopener noreferrer'
+          style={{ marginLeft: '1rem' }}
+          href={`https://www.imdb.com/name/${movie.imdb_id}`}
+        >
+          <FaImdb size={25} />
+        </a>
+      ) : null}
     </div>
   );
 };

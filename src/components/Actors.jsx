@@ -7,14 +7,15 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 const apiKey = import.meta.env.VITE_API_KEY;
 const imageUrl = import.meta.env.VITE_IMG;
-
+const Placeholder = import.meta.env.VITE_IMG;
+import TesTEp from '../assets/posterbackdrop.png';
 const MovieUrl = import.meta.env.VITE_API;
 const Actors = () => {
   const settings = {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 6,
+    slidesToShow: 7,
     slidesToScroll: 4,
     initialSlide: 0,
     autoplay: false,
@@ -67,19 +68,27 @@ const Actors = () => {
     <div className='aaa' key={movie.id}>
       <Slider {...settings}>
         {movie.map((item, index) => (
-          <div key={index} className='card'>
+          <div key={index} className='card-home'>
             <div className='card-top'>
               <Link to={`/person/${item.id}`}>
                 {item.profile_path ? (
                   <img
-                    width='250px'
+                    style={{
+                      width: '98%',
+                      backgroundColor: '#202124',
+                      height: '100%',
+                    }}
                     src={imageUrl + item.profile_path}
                     alt=''
                   />
                 ) : (
                   <img
-                    width={250}
-                    src='https://i.mydramalist.com/vEAp2_4f.jpg'
+                    style={{
+                      width: '98%',
+                      backgroundColor: '#202124',
+                      height: '100%',
+                    }}
+                    src={TesTEp}
                   />
                 )}
               </Link>

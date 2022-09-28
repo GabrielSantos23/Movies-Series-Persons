@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
   useLocation,
@@ -22,6 +22,7 @@ import './index.css';
 
 import { motion } from 'framer-motion';
 import Modal from 'react-modal';
+import ScrollToTop from './components/components-home/ScrollToTop';
 
 const PageLayout = ({ children }) => children;
 
@@ -65,9 +66,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <SkeletonTheme baseColor='#202020' highlightColor='#444'>
       <Router>
+        <ScrollToTop />
         <CustomSwitch>
           <Route element={<App />}>
-            <Route path='/Movies-Series-Persons/' element={<Home />} />
+            <Route path='/' element={<Home />} />
             <Route path='/movie/:id' element={<Movie />} />
             <Route path='/person/:id' element={<Person />} />
             <Route path='/serie/:id' element={<Serie />} />

@@ -3,8 +3,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 const imageUrl = import.meta.env.VITE_IMG;
-
-import Rating from '@mui/material/Rating';
+import { Rating } from '@mui/material';
 
 const formatAsPercentage = (x) => `${(Math.round(x * 10) * 5) / 100}`;
 
@@ -30,7 +29,7 @@ const MovieCard = ({ item }) => {
       <div className='card-top'>
         <Link to={`/movie/${item.id}`}>
           <img
-            style={{ width: '98%', backgroundColor: '#202124', height: '100%' }}
+            style={{ width: '98%' }}
             src={imageUrl + item.poster_path}
             alt=''
           />

@@ -14,7 +14,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as Icons from 'react-icons/fa';
 import SeriesCard from '../components/SeriesCard';
 import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 const moviesURL = import.meta.env.VITE_API_PERSON;
 const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -29,10 +31,6 @@ const apiKey = import.meta.env.VITE_API_KEY;
 */
 
 const Home = () => {
-  <Helmet>
-    <meta charSet='utf-8' />
-    <title>Movies,Series,Persons</title>
-  </Helmet>;
   const settings = {
     dots: false,
     infinite: false,
@@ -207,6 +205,12 @@ const Home = () => {
               </div>
             </Slider>
             <SeriesCard />
+            <HelmetProvider>
+              <Helmet>
+                <meta charSet='utf-8' />
+                <title>Movies,Series,Persons</title>
+              </Helmet>
+            </HelmetProvider>
           </motion.div>
         )}
       </div>

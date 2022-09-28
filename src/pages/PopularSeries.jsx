@@ -3,38 +3,45 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import image from '../assets/posterbackdrop.png';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import TesTEp from '../assets/posterbackdrop.png';
 
 import { FiSearch } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import 'react-loading-skeleton/dist/skeleton.css';
 import loadingimg from '../assets/PikPng.com_microsoft-edge-logo-png_2006386.png';
+import styled from 'styled-components';
+const Input1 = styled.input`
+  width: 400px;
+  height: 40px;
+  border: none;
+  padding: 2%;
+  border-radius: 0px 5px 5px 0;
+  border-bottom: 3px solid #337ab7;
+  background-color: #343434;
+  color: #fff;
+  @media (max-width: 468px) {
+    width: 200px;
+  }
+`;
 
+const Button1 = styled.button`
+  width: 50px;
+  height: 40px;
+
+  border-bottom: 3px solid #337ab7;
+  padding: 2%;
+  border: none;
+  border-bottom: 3px solid #337ab7;
+  background-color: #343434;
+
+  border-radius: 5px 0 0 5px;
+`;
 import '../components/components-home/PaginationCss.css';
 const API_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '281d112a5f3e634a22a7bbe6657f040d';
 const IMAGE_BASE_URL = 'https://www.themoviedb.org/t/p/';
 const ORIGINAL = 'https://image.tmdb.org/t/p/original';
 
-function GridCard({ image, movieId, movieName }) {
-  return (
-    <div
-      className='Card'
-      style={{ margin: '1.5%' }}
-      cover={
-        <img
-          alt={movieName}
-          src={image}
-          onError={(e) => {
-            if (e.target.src !== image.poster_path) {
-              e.target.onerror = null;
-              e.target.src = 'https://i.mydramalist.com/vEAp2_4f.jpg';
-            }
-          }}
-        />
-      }
-    ></div>
-  );
-}
 function Backdrop({ image, children }) {
   return (
     <div
@@ -60,17 +67,17 @@ function Backdrop({ image, children }) {
 const SearchMenu = ({ mode, value, onChange }) => {
   return (
     <div className='searchMenu' style={{ display: 'flex' }}>
-      <input
-        className='input-popular'
+      <Button1 className=''>
+        <FiSearch color='#999' fontSize={15} />
+      </Button1>
+      <Input1
+        className=''
         value={value}
         placeholder='What are you looking for?'
         type='search'
         style={{ width: 400 }}
         onChange={(e) => onChange(e.target.value)}
       />
-      <button className='popular-button'>
-        <FiSearch />
-      </button>
     </div>
   );
 };
@@ -110,7 +117,6 @@ function PopularSeries() {
         if (!json?.results) {
           throw new Error(json?.statusMessage ?? 'Error');
         }
-        console.log(json);
 
         setMovies((previous) =>
           currentPage === 1 ? json.results : [...previous, ...json.results]
@@ -207,10 +213,7 @@ function PopularSeries() {
                       />
                     </Link>
                   ) : (
-                    <img
-                      width={200}
-                      src='https://i.mydramalist.com/vEAp2_4f.jpg'
-                    />
+                    <img width={200} src={TesTEp} />
                   )}
 
                   <p>{movie.name}</p>

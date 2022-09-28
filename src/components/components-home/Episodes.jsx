@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import image from '../../assets/imagebackground.png';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 const SeriesURL = import.meta.env.VITE_API_SERIES;
 const apiKey = import.meta.env.VITE_API_KEY;
 const Video = import.meta.env.VITE_VIDEO_LINK;
@@ -12,22 +13,23 @@ const animations = {
   exit: { opacity: 0 },
 };
 
-function VideoSeries() {
+function Episodes() {
   const { id } = useParams();
   const [movie, setMovie] = useState([]);
-
-  const getBackdrop = async (url) => {
-    const res = await fetch(url);
-    const data = await res.json();
-
-    setMovie(data.results);
-  };
+  const [episodes, setEpisodes] = useState([]);
 
   useEffect(() => {
-    const movieUrl = `${SeriesURL}${id}/videos?${apiKey}`;
-
-    getBackdrop(movieUrl);
+    axios
+      .get(
+        `https://api.themoviedb.org/3/tv/${id}?${apiKey}&append_to_response=season/1,season/2,season/3,season/4,season/5,season/6,season/7,season/8,season/9,season/10,season/11,`
+      )
+      .then((response) => {
+        const results = response.data;
+        setEpisodes(results);
+        console.log(results);
+      });
   }, []);
+
   return (
     <div
       style={{
@@ -40,27 +42,13 @@ function VideoSeries() {
         gap: '10px',
       }}
     >
-      {movie &&
-        movie.map((movie, index) => (
-          <a
-            key={index}
-            href={Video + movie.key}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <img
-              src={`https://img.youtube.com/vi/${movie.key}/mqdefault.jpg`}
-              style={{
-                backgroundColor: '#202124',
-                height: '180px',
-                width: '300px',
-              }}
-              alt=''
-            />
-          </a>
-        ))}
+      {episodes.map((episodes) => (
+        <>
+          <p>{episodes.air_date}</p>
+        </>
+      ))}
     </div>
   );
 }
 
-export default VideoSeries;
+export default Episodes;

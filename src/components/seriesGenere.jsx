@@ -5,7 +5,7 @@ const SeriesURL = import.meta.env.VITE_API_SERIES;
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
-function Genere() {
+function SerieGenre() {
   const { id } = useParams();
   const [movie, setMovie] = useState([]);
 
@@ -18,7 +18,7 @@ function Genere() {
 
   useEffect(() => {
     const movieUrl = `${SeriesURL}${id}?${apiKey}`;
-    console, console.log(movieUrl);
+
     getMovie(movieUrl);
   }, []);
 
@@ -36,4 +36,4 @@ function Genere() {
   );
 }
 
-export default Genere;
+export default SerieGenre;

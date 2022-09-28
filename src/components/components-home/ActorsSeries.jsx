@@ -7,10 +7,10 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 const apiKey = import.meta.env.VITE_API_KEY;
-
+import TesTEp from '../../assets/posterbackdrop.png';
 const SeriesURL = import.meta.env.VITE_API_SERIES;
 
-const Actors = () => {
+const ActorsSerie = () => {
   const settings = {
     dots: false,
     infinite: false,
@@ -60,30 +60,38 @@ const Actors = () => {
   const { id } = useParams();
   useEffect(() => {
     const movieUrl = `${SeriesURL}${id}/credits?${apiKey}`;
-    console.log(movieUrl);
+
     getMovie(movieUrl);
   }, []);
 
   return (
-    <div className='aaa'>
+    <div className='aaa' key={movie.id}>
       <Slider {...settings}>
         {movie.map((item, index) => (
-          <div key={index} className='card'>
+          <div key={index} className='card-home'>
             <div className='card-top'>
-              {movie.profile_path ? (
-                <img width={250} src='https://i.mydramalist.com/vEAp2_4f.jpg' />
-              ) : (
-                <Link to={`/person/${item.id}`}>
+              <Link to={`/person/${item.id}`}>
+                {item.profile_path ? (
                   <img
-                    width='250px'
-                    height={350}
-                    style={{ backgroundColor: '#202124' }}
+                    style={{
+                      width: '98%',
+                      backgroundColor: '#202124',
+                      height: '100%',
+                    }}
                     src={imageUrl + item.profile_path}
                     alt=''
                   />
-                </Link>
-              )}
-
+                ) : (
+                  <img
+                    style={{
+                      width: '98%',
+                      backgroundColor: '#202124',
+                      height: '100%',
+                    }}
+                    src={TesTEp}
+                  />
+                )}
+              </Link>
               <p>{item.name}</p>
               <p style={{ color: '#999' }}>{item.character}</p>
             </div>
@@ -94,4 +102,4 @@ const Actors = () => {
   );
 };
 
-export default Actors;
+export default ActorsSerie;

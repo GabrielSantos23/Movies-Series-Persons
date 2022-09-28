@@ -1,7 +1,6 @@
 import { useState, useEffect, Component } from 'react';
 import { renderMatches, useParams } from 'react-router-dom';
 import Iframe from 'react-iframe';
-
 import Posters from './Posters';
 const moviesURL = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -23,7 +22,7 @@ function Movie() {
       const data = await res.json();
       setMovie(data.backdrops);
       setIsLoading(false);
-    }, 1000);
+    });
   }, []);
   /*const getBackdrop = async (url) => {
     const res = await fetch(url);
@@ -47,6 +46,7 @@ function Movie() {
               display: 'flex',
               justifyContent: 'center',
               marginBottom: '10px',
+              alignItems: 'flex-start',
             }}
           >
             Backdrops
@@ -57,7 +57,7 @@ function Movie() {
               flexDirection: 'row',
               flexWrap: 'wrap',
               justifyContent: 'center',
-              marginLeft: '60px',
+              alignItems: 'flex-start',
             }}
           >
             {movie &&

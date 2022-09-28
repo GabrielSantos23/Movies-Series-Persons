@@ -1,4 +1,3 @@
-import { display } from '@mui/system';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import KnowFor from '../components/components-home/KnowFor';
@@ -9,11 +8,30 @@ import {
   STab,
   STabPanel,
 } from '../components/components-home/StyledTab';
-import { Helmet } from 'react-helmet';
-
+import { TabPanel } from 'react-tabs';
+import TesTEp from '../assets/posterbackdrop.png';
+import styled from 'styled-components';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
+import CreditsPerson from '../components/components-home/CreditsPerson';
+import PersonImages from '../components/components-home/PersonImages';
+import Poster from '../assets/posterbackdrop.png';
 const apiKey = import.meta.env.VITE_API_KEY;
 const imageUrl = import.meta.env.VITE_IMG;
 const MovieUrl = import.meta.env.VITE_API_PERSON;
+const PersonDiv = styled.div`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const Content = styled.div`
+  max-width: 85%;
+  width: 100vw;
+  height: 100vh;
+`;
+const PersonInfo = styled.div``;
 const Person = () => {
   const [movie, setMovie] = useState([]);
 
@@ -22,128 +40,129 @@ const Person = () => {
     const data = await res.json();
 
     setMovie(data);
-    console.log(data);
   };
   const { id } = useParams();
   useEffect(() => {
     const movieUrl = `https://api.themoviedb.org/3/person/${id}?${apiKey}`;
-    console.log(movieUrl);
+
     getMovie(movieUrl);
   }, []);
+  function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
 
   return (
-    <div
-      style={{
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        letterSpacing: 1,
-      }}
-      key={movie.id}
-    >
-      <Helmet>
-        <meta charSet='utf-8' />
-        <title>{movie.name}</title>
-      </Helmet>
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          maxWidth: '1900px',
-          width: '85%',
-          alignItems: 'center',
-          marginTop: '3rem',
-        }}
-      >
-        <ul>
-          <li style={{ marginRight: '0' }}>
-            <img
-              onError={(e) => {
-                if (e.target.src !== movie.profile_path) {
-                  e.target.onerror = null;
-                  e.target.src =
-                    'https://signwayonline.net/wp-content/uploads/2018/02/PROFILE-PHOTO-PLACEHOLDER-300x300.png';
-                }
-              }}
-              style={{ width: '80%', borderRadius: 5 }}
-              src={imageUrl + movie.profile_path}
-              alt=''
-            />
-          </li>
-        </ul>
-        <ul>
-          <li style={{ marginBottom: '2rem' }}>
-            <h3>{movie.name}</h3>
-          </li>
-          <li style={{ maxWidth: '1000px', letterSpacing: 1 }}>
-            {movie.biography}
-          </li>
-          <div style={{ display: 'flex', marginTop: '2rem' }}>
+    <PersonDiv>
+      <Content>
+        <PersonInfo>
+          <HelmetProvider>
+            <Helmet>
+              <title>{movie.name}</title>
+            </Helmet>
+          </HelmetProvider>
+          <ul style={{ marginTop: '3rem', display: 'flex', flexWrap: 'wrap' }}>
             <ul>
-              <li>Know for</li>
-              <li>Born</li>
-              <li>Place of Birth</li>
+              {movie.profile_path ? (
+                <li>
+                  <img
+                    src={imageUrl + movie.profile_path}
+                    style={{ width: '350px' }}
+                    alt=''
+                  />
+                </li>
+              ) : (
+                <li>
+                  <img src={Poster} style={{ width: '350px' }} alt='' />
+                </li>
+              )}
             </ul>
-            <ul style={{ marginLeft: '5rem' }}>
-              <li>{movie.known_for_department}</li>
-              <li>{movie.birthday}</li>
-              <li>{movie.place_of_birth}</li>
+            <ul style={{ margin: '20px' }}>
+              <li>
+                <h2 style={{ fontWeight: '300' }}>{movie.name}</h2>
+              </li>
+              <li style={{ maxWidth: '800px', marginTop: '40px' }}>
+                <p style={{ fontSize: '16px' }}>{movie.biography}</p>
+              </li>
+              <ul
+                style={{
+                  display: 'flex',
+                  gap: '20px',
+                  marginTop: '40px',
+                }}
+              >
+                <ul>
+                  <li style={{ marginBottom: 10 }}>Know for</li>
+                  <li style={{ marginBottom: 10 }}>Born</li>
+                  <li style={{ marginBottom: 10 }}>Place Of Birth</li>
+                </ul>
+                <ul>
+                  {movie.known_for_department ? (
+                    <li style={{ marginBottom: 10 }}>
+                      {movie.known_for_department}
+                    </li>
+                  ) : (
+                    <p style={{ marginBottom: '10px' }}>No info</p>
+                  )}
+                  {movie.birthday ? (
+                    <li style={{ marginBottom: 10 }}>
+                      {movie.birthday}&nbsp; (age {getAge(movie.birthday)})
+                    </li>
+                  ) : (
+                    <p style={{ marginBottom: '10px' }}>No info</p>
+                  )}
+                  {movie.place_of_birth ? (
+                    <li style={{ marginBottom: 10 }}>{movie.place_of_birth}</li>
+                  ) : (
+                    <p>No info</p>
+                  )}
+                </ul>
+              </ul>
+              <SocialMedia />
             </ul>
-          </div>
-          <SocialMedia />
-        </ul>
-        <div style={{ width: '100%' }}>
-          <STabs style={{ display: 'flex', flexDirection: 'column' }}>
+          </ul>
+        </PersonInfo>
+        <div style={{}}>
+          <STabs style={{ width: '' }}>
             <StabList
+              id='TabList'
               style={{
                 display: 'flex',
                 justifyContent: 'center',
-                width: '100%',
               }}
             >
-              <STab
-                style={{ fontSize: '17px' }}
-                selectedClassName='is-selected'
-              >
+              <STab style={{ zIndex: '2' }} selectedClassName='is-selected'>
                 KNOW FOR
               </STab>
-              <STab
-                style={{ fontSize: '17px' }}
-                selectedClassName='is-selected'
-              >
+
+              <STab style={{ zIndex: '2' }} selectedClassName='is-selected'>
                 CREDITS
               </STab>
-              <STab
-                style={{ fontSize: '17px' }}
-                selectedClassName='is-selected'
-              >
+              <STab style={{ zIndex: '2' }} selectedClassName='is-selected'>
                 PHOTOS
               </STab>
             </StabList>
+            <TabPanel style={{}}>
+              {' '}
+              <KnowFor />
+            </TabPanel>
 
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <STabPanel>
-                <KnowFor />
-              </STabPanel>
-            </div>
-
-            <STabPanel>
-              <p>a</p>
-            </STabPanel>
-            <STabPanel>
-              <p>a</p>
-            </STabPanel>
+            <TabPanel>
+              <CreditsPerson />
+            </TabPanel>
+            <TabPanel>
+              <PersonImages />
+            </TabPanel>
           </STabs>
         </div>
-      </div>
-    </div>
+      </Content>
+    </PersonDiv>
   );
 };
 

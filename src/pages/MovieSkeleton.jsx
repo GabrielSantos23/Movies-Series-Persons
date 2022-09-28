@@ -1,112 +1,154 @@
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
+import styled from 'styled-components';
 import 'react-loading-skeleton/dist/skeleton.css';
+
+const All = styled.div`
+  width: 100%;
+  height: 100vh;
+`;
+const Content = styled.div`
+  width: 94%;
+  position: absolute;
+  right: 0;
+
+  height: 100vh;
+`;
+const Banner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+`;
+const Ula = styled.ul`
+  @media (max-width: 1268px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+const SkeletonDiv = styled.div`
+  background-color: black;
+  height: 76vh;
+  width: 92%;
+  display: flex;
+  align-items: center;
+  margin-left: 100px;
+`;
+const Title = styled(Skeleton)`
+  width: 30vw;
+  height: 65px;
+  margin-bottom: 10px;
+`;
+const Info = styled(Skeleton)`
+  width: 25vw;
+  height: 20px;
+  margin-bottom: 10px;
+`;
+const Overview = styled(Skeleton)`
+  width: 250px;
+  height: 20px;
+  @media (max-width: 1268px) {
+    display: none;
+  }
+`;
+const Ulan = styled.ul`
+  @media (max-width: 1268px) {
+    display: flex;
+    justify-content: center;
+  }
+`;
+const Actors = styled(Skeleton)`
+  width: 250px;
+  height: 350px;
+`;
+
 export default function MovieSkeleton() {
   return (
-    <div>
-      <div
-        style={{
-          backgroundColor: '#000',
-          height: '76vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            maxWidth: '1600px',
-            width: '100%',
-            height: '100%',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              justifyContent: 'center',
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            <h1>
-              <Skeleton width={'60vw'} height={80} />
-            </h1>
-            <p>
-              <Skeleton width={'10vw'} height={20} />
-            </p>
-            <p style={{ marginTop: '20px' }}>
-              <Skeleton width={'50vw'} height={20} count={3} />
-            </p>
+    <All>
+      <Banner>
+        <SkeletonDiv>
+          <div>
+            <Title />
+            <Info />
+            <Overview count={3} />
           </div>
-        </div>
-      </div>
-      <div>
-        <ul
-          style={{
-            display: 'flex',
-            marginTop: 10,
-            justifyContent: 'center',
-          }}
-        >
-          <li style={{ marginRight: 10 }}>
-            {' '}
-            <Skeleton height={30} width={85} />
-          </li>
-          <li style={{ marginRight: 10 }}>
-            {' '}
-            <Skeleton height={30} width={85} />
-          </li>
-          <li>
-            {' '}
-            <Skeleton height={30} width={85} />
-          </li>
-        </ul>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: 100,
-        }}
-      >
+        </SkeletonDiv>
+      </Banner>
+      <Content>
         <div
           style={{
-            width: '100%',
-            height: '100%',
-            maxWidth: '1600px',
+            justifyContent: 'center',
+            marginTop: '20px',
+            gap: 20,
             display: 'flex',
-            flexDirection: 'row',
+          }}
+        >
+          <Skeleton width={100} height={30} />
+          <Skeleton width={100} height={30} />
+          <Skeleton width={100} height={30} />
+        </div>
+        <Ula
+          style={{
+            marginTop: '20px',
+            display: 'flex',
+            gap: '20px',
             flexWrap: 'wrap',
           }}
         >
-          <ul style={{ marginRight: '20px' }}>
+          <ul>
             <li>
-              <Skeleton height={300} width={250} />
+              <Skeleton width={350} height={550} />
             </li>
           </ul>
           <ul>
             <li>
-              <Skeleton height={20} width={200} />
+              <Skeleton
+                width={150}
+                height={20}
+                style={{ marginBottom: '20px' }}
+              />
             </li>
-            <ul style={{ marginTop: '20px' }}>
+            <li>
+              <Skeleton width={450} height={20} count={4} />
+            </li>
+            <Ulan style={{ marginTop: '20px', display: 'flex', gap: '20px' }}>
               <li>
-                <Skeleton height={20} width={'50vw'} count={3} />
+                <Skeleton
+                  width={100}
+                  height={20}
+                  count={9}
+                  style={{ marginBottom: '20px' }}
+                />
               </li>
-            </ul>
-            <ul>
-              <li style={{ marginTop: '50px' }}>
-                <Skeleton height={20} width={400} count={5} />
+              <li>
+                <Skeleton
+                  width={100}
+                  height={20}
+                  count={9}
+                  style={{ marginBottom: '20px' }}
+                />
               </li>
-            </ul>
+
+              <li></li>
+            </Ulan>
           </ul>
+        </Ula>
+        <Skeleton
+          width={150}
+          height={40}
+          style={{ marginTop: '30px', marginBottom: '30px' }}
+        />
+        <div></div>
+        <div style={{ display: 'flex', gap: '3px', flexWrap: 'wrap' }}>
+          <Actors />
+          <Actors />
+          <Actors />
+          <Actors />
+          <Actors />
+          <Actors />
         </div>
-      </div>
-    </div>
+      </Content>
+    </All>
   );
 }

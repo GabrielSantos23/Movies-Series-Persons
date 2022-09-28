@@ -61,8 +61,9 @@ function Movie() {
             }}
           >
             {movie &&
-              movie.map((movie) => (
+              movie.map((movie, index) => (
                 <img
+                  key={index}
                   style={{
                     marginLeft: 3,
 

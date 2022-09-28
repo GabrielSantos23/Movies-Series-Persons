@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
 const Img = 'https://image.tmdb.org/t/p/w500';
-import { useHorizontalScroll } from '../components/components-home/HorizontalScroll';
 
 import '../pages/Card.css';
 
@@ -146,7 +145,10 @@ const SeriesCard = () => {
                 marginTop: '20px',
               }}
             >
-              <p>&copy; 2022 Gabriel Santos. All rights reserved</p>
+              <p>
+                &copy; {new Date().getFullYear()} Gabriel Santos. All rights
+                reserved
+              </p>
               <p>
                 Designed and built by me, data provided by{' '}
                 <a

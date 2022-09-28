@@ -11,8 +11,8 @@ import TesTEp from '../assets/posterbackdrop.png';
 const apiKey = import.meta.env.VITE_API_KEY;
 const imageUrl = import.meta.env.VITE_IMG;
 
-const MovieUrl = import.meta.env.VITE_API;
-const Recommendations = () => {
+const SeriesUrl = import.meta.env.VITE_API_SERIES;
+const RecommendationsSeries = () => {
   const settings = {
     dots: false,
     infinite: false,
@@ -58,11 +58,10 @@ const Recommendations = () => {
   useEffect(() => {
     setTimeout(async () => {
       const res = await fetch(
-        `${MovieUrl}${id}/recommendations?language=en-US&include_adult=false&${apiKey}`
+        `${SeriesUrl}${id}/recommendations?language=en-US&include_adult=false&${apiKey}`
       );
       const data = await res.json();
       setMovie(data.results);
-
       setIsLoading(false);
     }, 100);
   }, []);
@@ -70,7 +69,7 @@ const Recommendations = () => {
 
   return (
     <div className='aaa' key={movie.id}>
-      {movie && (
+      {isLoading ? null : (
         <>
           <h2
             style={{
@@ -85,7 +84,7 @@ const Recommendations = () => {
             {movie.map((item, index) => (
               <div key={index} className='card-home'>
                 <div className='card-top'>
-                  <Link to={`/movie/${item.id}`}>
+                  <Link to={`/serie/${item.id}`}>
                     {item.poster_path ? (
                       <div>
                         <img
@@ -145,7 +144,6 @@ const Recommendations = () => {
           </Slider>
         </>
       )}
-
       <div
         style={{
           display: 'flex',
@@ -182,4 +180,4 @@ const Recommendations = () => {
   );
 };
 
-export default Recommendations;
+export default RecommendationsSeries;

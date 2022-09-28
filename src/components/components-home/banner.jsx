@@ -11,9 +11,12 @@ import { Rating } from '@mui/material';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/styles';
 const formatAsPercentage = (x) => `${(Math.round(x * 10) * 5) / 100}`;
-import LinesEllipsis from 'react-lines-ellipsis';
+import { motion } from 'framer-motion';
 import { BsPlayCircle } from 'react-icons/bs';
 import HTMLEllipsis from 'react-lines-ellipsis/lib/html';
+import { Link } from 'react-router-dom';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 function toHoursAndMinutes(totalMinutes) {
   const minutes = totalMinutes % 60;
   const hours = Math.floor(totalMinutes / 60);
@@ -102,13 +105,14 @@ const FilterDiv = styled.div`
     max-height: 50vh;
   }
 `;
-const Title = styled.h1`
+const Title = styled(motion.h1)`
   font-size: 60px;
+  font-weight: 300;
   @media (max-width: 868px) {
     font-size: 30px;
   }
 `;
-const Overview = styled.p`
+const Overview = styled.div`
   max-width: 700px;
   margin-top: 20px;
   letter-spacing: 0px;
@@ -166,7 +170,7 @@ function Banner() {
       });
   }, []);
   const classes = useStyles();
-  console.log(movie.runtime);
+
   return (
     <Container>
       <BannerP>
@@ -185,7 +189,9 @@ function Banner() {
               >
                 {movie.title ? (
                   <div style={{ maxWidth: '1650px', marginLeft: '50px' }}>
-                    <Title style={{}}>{movie.title}</Title>
+                    <Link to={`/movie/${movie.id}`}>
+                      <Title>{movie.title}</Title>
+                    </Link>
                     <div
                       style={{
                         display: 'flex',
@@ -218,17 +224,14 @@ function Banner() {
                     </div>
 
                     <Overview style={{ width: '600px', marginTop: '20px' }}>
-                      <HTMLEllipsis
-                        unsafeHTML={movie.overview}
-                        maxLine='3'
-                        ellipsis='...'
-                        basedOn='letters'
-                      />
+                      {movie.overview}
                     </Overview>
                   </div>
                 ) : (
                   <div style={{ maxWidth: '1650px', marginLeft: '50px' }}>
-                    <Title style={{}}>{movie.name}</Title>
+                    <Link to={`/serie/${movie.id}`}>
+                      <Title style={{}}>{movie.name}</Title>
+                    </Link>
                     <div
                       style={{
                         display: 'flex',
@@ -271,7 +274,7 @@ function Banner() {
             >
               <ImgDiv>
                 <Emoji>
-                  <BsPlayCircle style={{}} />
+                  <BsPlayCircle />
                 </Emoji>
               </ImgDiv>
             </FilterDiv>

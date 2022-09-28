@@ -8,8 +8,6 @@ const SeriesURL = import.meta.env.VITE_API_SERIES;
 const apiKey = import.meta.env.VITE_API_KEY;
 const imageUrl = import.meta.env.VITE_URL_BACKGROUND;
 
-import { BsPlayFill } from 'react-icons/bs';
-
 function ImageSeries() {
   const { id } = useParams();
   const [movie, setMovie] = useState([]);
@@ -39,7 +37,7 @@ function ImageSeries() {
   }, []);
 
   return (
-    <div>
+    <div key={movie.id}>
       {isLoading ? null : (
         <>
           <h1
@@ -62,18 +60,21 @@ function ImageSeries() {
             }}
           >
             {movie &&
-              movie.map((movie) => (
-                <img
-                  style={{
-                    marginLeft: 1,
-                    marginBottom: 10,
-                    width: 300,
-                    height: '180px',
-                    bacgkroundColor: '#202124',
-                  }}
-                  src={imageUrl + movie.file_path}
-                  alt=''
-                />
+              movie.map((movie, index) => (
+                <>
+                  <img
+                    key={index}
+                    style={{
+                      marginBottom: 10,
+                      marginLeft: '10px',
+                      width: 300,
+                      height: '180px',
+                      bacgkroundColor: '#202124',
+                    }}
+                    src={imageUrl + movie.file_path}
+                    alt=''
+                  />
+                </>
               ))}
           </div>
         </>

@@ -5,6 +5,7 @@ const moviesURL = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
 const Video = import.meta.env.VITE_VIDEO_LINK;
 import Skeleton from 'react-loading-skeleton';
+import Loading from '../../assets/Infinity-1s-200px.svg';
 
 import { BsPlayFill } from 'react-icons/bs';
 import { motion } from 'framer-motion';
@@ -25,7 +26,7 @@ function Movie() {
 
   useEffect(() => {
     const movieUrl = `${moviesURL}${id}/videos?${apiKey}`;
-    console.log(movieUrl);
+
     getBackdrop(movieUrl);
     setIsLoading(false);
   }, []);
@@ -50,39 +51,43 @@ function Movie() {
         justifyContent: 'center',
       }}
     >
-      <div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            maxwidth: '1900px',
-          }}
-        >
-          {isLoading ? (
-            <Skeleton width={320} height={180} />
-          ) : (
-            <>
-              {movie &&
-                movie.map((movie) => (
-                  <div className='' style={{ margin: '0.1%' }} key={movie.id}>
-                    <a
-                      href={Video + movie.key}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                    >
-                      <img
-                        src={`https://img.youtube.com/vi/${movie.key}/mqdefault.jpg`}
-                        alt=''
-                      />
-                    </a>
-                  </div>
-                ))}
-            </>
-          )}
+      {isLoading ? (
+        <img src={Loading} />
+      ) : (
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              maxwidth: '1900px',
+            }}
+          >
+            {isLoading ? (
+              <Skeleton width={320} height={180} />
+            ) : (
+              <>
+                {movie &&
+                  movie.map((movie) => (
+                    <div className='' style={{ margin: '0.1%' }} key={movie.id}>
+                      <a
+                        href={Video + movie.key}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        <img
+                          src={`https://img.youtube.com/vi/${movie.key}/mqdefault.jpg`}
+                          alt=''
+                        />
+                      </a>
+                    </div>
+                  ))}
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

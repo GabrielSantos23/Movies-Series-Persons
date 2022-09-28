@@ -22,7 +22,7 @@ function Production() {
   }, []);
 
   return (
-    <div style={{ display: 'flex' }} key={movie.id}>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }} key={movie.id}>
       {movie &&
         movie.map((movie) => (
           <div key={movie.id}>
