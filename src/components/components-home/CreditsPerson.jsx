@@ -42,7 +42,7 @@ const CreditsPerson = () => {
       .get(`${MovieUrl}/person/${id}/tv_credits?${apiKey}`)
       .then((response) => {
         const results = response.data.cast;
-        console.log(results);
+
         setSerie(results);
       });
   }, []);

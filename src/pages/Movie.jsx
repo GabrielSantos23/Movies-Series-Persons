@@ -64,6 +64,8 @@ const Back = styled.div`
     z-index: 10;
     height: 3rem;
     position: fixed;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 const Overview = styled.p`
@@ -151,6 +153,8 @@ const TextAll = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  @media (max-width: 1268px) {
+  }
 `;
 
 const ContentPrinc = styled.div``;
@@ -215,17 +219,10 @@ const Movie = () => {
                     />
                   </button>
                 </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontWeight: 400,
-                    width: '100%',
-                  }}
-                >
+                <div>
                   <p>{movie.title}</p>
                 </div>
+                <div style={{ color: '#000' }}>_</div>
               </Back>
               <Content>
                 <Banner>
@@ -240,7 +237,7 @@ const Movie = () => {
                         height: '100%',
                       }}
                     >
-                      <TextAll style={{}}>
+                      <TextAll style={{ marginBottom: '30px' }}>
                         <Title style={{}}>
                           {movie.title || <Skeleton width={200} height={20} />}
                         </Title>
@@ -342,20 +339,18 @@ const Movie = () => {
                             src={imageUrl + movie.poster_path}
                             alt=''
                             style={{
-                              width: 350,
+                              width: '300px',
                               marginRight: 20,
                               backgroundColor: '#202124',
-                              height: 530,
-                              marginTop: 30,
                             }}
                           />
                         </li>
                       </ul>
                       <ul className='description'>
-                        <li>
+                        <li style={{ maxWidth: '1000px' }}>
                           <h2 style={{ paddingBottom: 20 }}>Storyline</h2>
                           <p
-                            className='overviewbottom'
+                            className=''
                             style={{
                               fontSize: 15,
                               maxWidth: '70%',

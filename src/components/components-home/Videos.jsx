@@ -7,11 +7,6 @@ const Video = import.meta.env.VITE_VIDEO_LINK;
 import Skeleton from 'react-loading-skeleton';
 import Loading from '../../assets/Infinity-1s-200px.svg';
 
-import { BsPlayFill } from 'react-icons/bs';
-import { motion } from 'framer-motion';
-import ReactPlayer from 'react-player';
-import image from '../../assets/imagebackground.png';
-
 function Movie() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
@@ -57,6 +52,7 @@ function Movie() {
         <div>
           <div
             style={{
+              marginTop: '10px',
               display: 'flex',
               alignItems: 'center',
               flexWrap: 'wrap',
@@ -70,7 +66,7 @@ function Movie() {
               <>
                 {movie &&
                   movie.map((movie) => (
-                    <div className='' style={{ margin: '0.1%' }} key={movie.id}>
+                    <div className='' style={{}} key={movie.id}>
                       <a
                         href={Video + movie.key}
                         target='_blank'

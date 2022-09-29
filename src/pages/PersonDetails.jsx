@@ -73,13 +73,13 @@ const Person = () => {
                 <li>
                   <img
                     src={imageUrl + movie.profile_path}
-                    style={{ width: '350px' }}
+                    style={{ width: '320px' }}
                     alt=''
                   />
                 </li>
               ) : (
                 <li>
-                  <img src={Poster} style={{ width: '350px' }} alt='' />
+                  <img src={Poster} style={{ width: '320px' }} alt='' />
                 </li>
               )}
             </ul>

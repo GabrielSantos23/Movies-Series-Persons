@@ -51,13 +51,11 @@ function Movie() {
           </h1>
           <div
             style={{
-              marginLeft: '100px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexDirection: 'row',
               flexWrap: 'wrap',
-              marginRight: '50px',
             }}
           >
             {movie &&

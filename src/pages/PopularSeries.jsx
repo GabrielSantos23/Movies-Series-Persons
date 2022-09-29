@@ -75,7 +75,7 @@ const SearchMenu = ({ mode, value, onChange }) => {
         value={value}
         placeholder='What are you looking for?'
         type='search'
-        style={{ width: 400 }}
+        style={{}}
         onChange={(e) => onChange(e.target.value)}
       />
     </div>

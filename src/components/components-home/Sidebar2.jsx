@@ -102,8 +102,7 @@ const Sidebar2 = () => {
               width: '100%',
               height: '100%',
               alignItems: 'center',
-              justifyContent: 'center',
-              gap: '10rem',
+              justifyContent: 'space-around',
             }}
           >
             <NavLink

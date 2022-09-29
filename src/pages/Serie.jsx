@@ -161,6 +161,9 @@ const TextAll = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  @media (max-width: 1268px) {
+    margin-bottom: 40px;
+  }
 `;
 
 const ContentPrinc = styled.div``;
@@ -347,20 +350,17 @@ const Serie = () => {
                             src={imageUrl + serie.poster_path}
                             alt=''
                             style={{
-                              width: 350,
+                              width: '300px',
                               marginRight: 20,
                               backgroundColor: '#202124',
-                              height: 530,
-                              marginTop: 30,
                             }}
                           />
                         </li>
                       </ul>
                       <ul className='description'>
-                        <li>
+                        <li style={{ maxWidth: '1000px' }}>
                           <h2 style={{ paddingBottom: 20 }}>Storyline</h2>
                           <p
-                            className='overviewbottom'
                             style={{
                               fontSize: 15,
                               maxWidth: '70%',

@@ -51,7 +51,6 @@ function ImageSeries() {
           </h1>
           <div
             style={{
-              marginLeft: '100px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
