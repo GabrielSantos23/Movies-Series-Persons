@@ -4,11 +4,21 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 export const STabs = styled(Tabs)`
   font-size: 20px;
+  @media only screen and (max-width: 800px) {
+    font-size: 15px;
+  }
+  @media only screen and (max-width: 600px) {
+    font-size: 12px;
+  }
+  @media only screen and (max-width: 400px) {
+    font-size: 8px;
+  }
 `;
 export const StabList = styled(TabList)`
   padding: 4px;
   display: flex;
   margin: 0;
+  letter-spacing: 2px;
 `;
 export const STab = styled(Tab)`
   margin-right: 15px;

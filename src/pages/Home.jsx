@@ -17,6 +17,7 @@ import { motion } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import Transitions from '../components/Transitions';
 const moviesURL = import.meta.env.VITE_API_PERSON;
 const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -29,6 +30,12 @@ const apiKey = import.meta.env.VITE_API_KEY;
   );
 };
 */
+
+const fruits = ['banana', 'apple', 'water'];
+
+const newFruits = fruits.pop();
+
+console.log(newFruits);
 
 const Home = () => {
   const settings = {
@@ -139,82 +146,84 @@ const Home = () => {
     exit: { opacity: 0 },
   };
   return (
-    <motion.div
-      variants={animations}
-      initial='initial'
-      animate='animate'
-      exit='exit'
-      className='container'
-    >
-      <Banner />
-      <div>
-        {isLoading ? (
-          <div
-            style={{
-              display: 'flex',
-
-              justifyContent: 'center',
-              width: '100vw',
-            }}
-          >
-            <img src={Loading} alt='' style={{ width: '100px' }} />
-          </div>
-        ) : (
-          <motion.div
-            key={pathname}
-            initial='initial'
-            animate='in'
-            variants={pageVariantes}
-            transition={pageTransition}
-            className='card-home'
-          >
+    <Transitions>
+      <motion.div
+        variants={animations}
+        initial='initial'
+        animate='animate'
+        exit='exit'
+        className='container'
+      >
+        <Banner />
+        <div>
+          {isLoading ? (
             <div
               style={{
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginBottom: '20px',
+
+                justifyContent: 'center',
+                width: '100vw',
               }}
             >
-              <h1 style={{ fontWeight: '300', fontSize: '24px' }}>
-                Trending Movies
-              </h1>
-              <Link to={'/MoviePages'}>See More</Link>
+              <img src={Loading} alt='' style={{ width: '100px' }} />
             </div>
-            <Slider {...settings}>
-              {topMovies.map((item) => (
-                <MovieCard item={item} key={item.id} />
-              ))}
-              <div style={{ height: '200px' }}>
-                <Link to={'/MoviePages'}>
-                  <p
-                    style={{
-                      display: 'flex',
-                      backgroundColor: '#202124',
-                      width: '200px',
-                      height: '300px',
-                      borderRadius: '5px',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    See More
-                  </p>
-                </Link>
+          ) : (
+            <motion.div
+              key={pathname}
+              initial='initial'
+              animate='in'
+              variants={pageVariantes}
+              transition={pageTransition}
+              className='card-home'
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: '20px',
+                }}
+              >
+                <h1 style={{ fontWeight: '300', fontSize: '24px' }}>
+                  Trending Movies
+                </h1>
+                <Link to={'/MoviePages'}>See More</Link>
               </div>
-            </Slider>
-            <SeriesCard />
-            <HelmetProvider>
-              <Helmet>
-                <meta charSet='utf-8' />
-                <title>Movies,Series,Persons</title>
-              </Helmet>
-            </HelmetProvider>
-          </motion.div>
-        )}
-      </div>
-    </motion.div>
+              <Slider {...settings}>
+                {topMovies.map((item) => (
+                  <MovieCard item={item} key={item.id} />
+                ))}
+                <div style={{ height: '200px' }}>
+                  <Link to={'/MoviePages'}>
+                    <p
+                      style={{
+                        display: 'flex',
+                        backgroundColor: '#202124',
+                        width: '200px',
+                        height: '300px',
+                        borderRadius: '5px',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      See More
+                    </p>
+                  </Link>
+                </div>
+              </Slider>
+              <SeriesCard />
+              <HelmetProvider>
+                <Helmet>
+                  <meta charSet='utf-8' />
+                  <title>Movies,Series,Persons</title>
+                </Helmet>
+              </HelmetProvider>
+            </motion.div>
+          )}
+        </div>
+      </motion.div>
+    </Transitions>
   );
 };
 

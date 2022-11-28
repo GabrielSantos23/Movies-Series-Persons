@@ -2,6 +2,7 @@ import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import styled from 'styled-components';
 import 'react-loading-skeleton/dist/skeleton.css';
+import Transitions from '../components/Transitions';
 
 const All = styled.div`
   width: 100%;

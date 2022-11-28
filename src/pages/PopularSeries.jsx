@@ -37,6 +37,7 @@ const Button1 = styled.button`
   border-radius: 5px 0 0 5px;
 `;
 import '../components/components-home/PaginationCss.css';
+import Transitions from '../components/Transitions';
 const API_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '281d112a5f3e634a22a7bbe6657f040d';
 const IMAGE_BASE_URL = 'https://www.themoviedb.org/t/p/';
@@ -156,112 +157,119 @@ function PopularSeries() {
   }, []);
 
   return (
-    <div style={{}}>
-      <Backdrop
-        image={movies[0] ? `${ORIGINAL}${movies[0]?.backdrop_path}` : undefined}
-      >
-        <SearchMenu
-          mode='horizontal'
-          value={searchTerm}
-          onChange={onChangeSearch}
-        />
-      </Backdrop>
+    <Transitions>
+      <div style={{}}>
+        <Backdrop
+          image={
+            movies[0] ? `${ORIGINAL}${movies[0]?.backdrop_path}` : undefined
+          }
+        >
+          <SearchMenu
+            mode='horizontal'
+            value={searchTerm}
+            onChange={onChangeSearch}
+          />
+        </Backdrop>
 
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <div style={{ width: '90%' }}>
-          <div
-            level={2}
-            style={{
-              margin: '1%',
-              marginLeft: '6.5%',
-              fontSize: '20px',
-              fontWeight: '500',
-            }}
-          >
-            {searchTerm ? `Results for: ${searchTerm}` : 'Most Popular Series'}
-          </div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <div style={{ width: '90%' }}>
+            <div
+              level={2}
+              style={{
+                margin: '1%',
+                marginLeft: '6.5%',
+                fontSize: '20px',
+                fontWeight: '500',
+              }}
+            >
+              {searchTerm
+                ? `Results for: ${searchTerm}`
+                : 'Most Popular Series'}
+            </div>
 
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              paddingLeft: 0,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {movies &&
-              movies.map((movie, index) => (
-                <div className='index' key={index}>
-                  {movie.poster_path ? (
-                    <Link to={`/serie/${movie.id}`}>
-                      <img
-                        style={{
-                          height: '300px',
-                          width: '200px',
-                          backgroundColor: '#202124',
-                        }}
-                        className='Card'
-                        src={`${IMAGE_BASE_URL}w500${movie.poster_path}`}
-                        alt=''
-                      />
-                    </Link>
-                  ) : (
-                    <img width={200} src={TesTEp} />
-                  )}
-
-                  <p>{movie.name}</p>
-                </div>
-              ))}
-          </div>
-
-          {loading && (
             <div
               style={{
                 display: 'flex',
+                flexWrap: 'wrap',
+                paddingLeft: 0,
+                alignItems: 'center',
                 justifyContent: 'center',
               }}
             >
-              <img
-                style={{ width: 50 }}
-                className='img360'
-                src={loadingimg}
-                alt='loading'
-              />
-            </div>
-          )}
+              {movies &&
+                movies.map((movie, index) => (
+                  <div className='index' key={index}>
+                    {movie.poster_path ? (
+                      <Link to={`/serie/${movie.id}`}>
+                        <img
+                          style={{
+                            height: '300px',
+                            width: '200px',
+                            backgroundColor: '#202124',
+                          }}
+                          className='Card'
+                          src={`${IMAGE_BASE_URL}w500${movie.poster_path}`}
+                          alt=''
+                        />
+                      </Link>
+                    ) : (
+                      <img width={200} src={TesTEp} />
+                    )}
 
-          <br />
-          <HelmetProvider>
-            <Helmet>
-              <meta charSet='utf-8' />
-              <title>Most Popular Series</title>
-            </Helmet>
-          </HelmetProvider>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            {hasNext ? (
-              <a
-                className='loadMore'
-                onClick={loadMoreItems}
-                disabled={loading}
+                    <p>{movie.name}</p>
+                  </div>
+                ))}
+            </div>
+
+            {loading && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
               >
-                <img src={loading} alt='' />
-              </a>
-            ) : (
-              <div>
-                Showing {counts.total_results} of {counts.total_results} Movies
+                <img
+                  style={{ width: 50 }}
+                  className='img360'
+                  src={loadingimg}
+                  alt='loading'
+                />
               </div>
             )}
+
+            <br />
+            <HelmetProvider>
+              <Helmet>
+                <meta charSet='utf-8' />
+                <title>Most Popular Series</title>
+              </Helmet>
+            </HelmetProvider>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              {hasNext ? (
+                <a
+                  className='loadMore'
+                  onClick={loadMoreItems}
+                  disabled={loading}
+                >
+                  <img src={loading} alt='' />
+                </a>
+              ) : (
+                <div>
+                  Showing {counts.total_results} of {counts.total_results}{' '}
+                  Movies
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Transitions>
   );
 }
 export default PopularSeries;

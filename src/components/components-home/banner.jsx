@@ -139,26 +139,6 @@ const useStyles = makeStyles((theme) => ({
 function Banner() {
   const [movie, setMovie] = useState([]);
 
-  /*const randomN = (e) => {
-    const len = movie.length;
-    setrandom(Math.floor(Math.random() * len));
-  };
-  const getMovie = async (url) => {
-    const res = await fetch(url);
-    const data = await res.json();
-
-    setMovie(data.results[2]);
-     const element2 = data.results
-      .sort(() => Math.random() - Math.random())
-      .find(() => true);
-    console.log(element2);*/
-  /*};
-  useEffect(() => {
-    const movieUrl = `${moviesURL}popular?${apiKey}`;
-    console.log(movieUrl);
-    getMovie(movieUrl);
-  }, []);
-*/
   useEffect(() => {
     axios
       .get(`https://api.themoviedb.org/3/trending/all/day?${apiKey}`)
@@ -167,6 +147,7 @@ function Banner() {
 
         const newIndex = Math.floor(Math.random() * results.length);
         setMovie(results[newIndex]);
+        console.log(newIndex);
       });
   }, []);
   const classes = useStyles();

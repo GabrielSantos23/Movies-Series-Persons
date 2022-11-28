@@ -12,6 +12,7 @@ import '../components/components-home/PaginationCss.css';
 import { Link } from 'react-router-dom';
 import { Rating } from '@mui/material';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Transitions from '../components/Transitions';
 
 const Input1 = styled.input`
   width: 400px;
@@ -167,152 +168,159 @@ function PopularMovies() {
     exit: { opacity: 0 },
   };
   return (
-    <motion.div
-      style={{}}
-      variants={animations}
-      initial='initial'
-      animate='animate'
-      exit='exit'
-    >
-      <Backdrop
-        image={movies[0] ? `${ORIGINAL}${movies[0]?.backdrop_path}` : undefined}
+    <Transitions>
+      <motion.div
+        style={{}}
+        variants={animations}
+        initial='initial'
+        animate='animate'
+        exit='exit'
       >
-        <SearchMenu
-          mode='horizontal'
-          value={searchTerm}
-          onChange={onChangeSearch}
-        />
-      </Backdrop>
+        <Backdrop
+          image={
+            movies[0] ? `${ORIGINAL}${movies[0]?.backdrop_path}` : undefined
+          }
+        >
+          <SearchMenu
+            mode='horizontal'
+            value={searchTerm}
+            onChange={onChangeSearch}
+          />
+        </Backdrop>
 
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <div style={{ width: '90%' }}>
-          <div
-            level={2}
-            style={{
-              margin: '1%',
-              marginLeft: '2.9%',
-              fontSize: '20px',
-              fontWeight: '500',
-            }}
-          >
-            {searchTerm ? `Results for: ${searchTerm}` : 'Most Popular Movies'}
-          </div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <div style={{ width: '90%' }}>
+            <div
+              level={2}
+              style={{
+                margin: '1%',
+                marginLeft: '2.9%',
+                fontSize: '20px',
+                fontWeight: '500',
+              }}
+            >
+              {searchTerm
+                ? `Results for: ${searchTerm}`
+                : 'Most Popular Movies'}
+            </div>
 
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              paddingLeft: 0,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {movies &&
-              movies.map((movie) => (
-                <div className='index' key={movie.id}>
-                  {isLoading ? (
-                    <Link to={`/movie/${movie.id}`}>
-                      <LazyLoadImage
-                        effect='blur'
-                        className='Card'
-                        src={`${IMAGE_BASE_URL}w500${movie.poster_path}`}
-                        style={{
-                          backgroundColor: '#202124',
-                          width: '200px',
-                          border: 'none',
-                          height: '300px',
-                        }}
-                      />
-                    </Link>
-                  ) : (
-                    <img width={200} src={TesTEp} />
-                  )}
-
-                  <div style={{}}>
-                    <motion.p
-                      variants={animations}
-                      initial='initial'
-                      animate='animate'
-                      exit='exit'
-                      style={{ marginBottom: '10px', marginTop: '5px' }}
-                    >
-                      {movie.title}
-                    </motion.p>
-
-                    <Rating
-                      precision={0.5}
-                      readOnly
-                      width={10}
-                      size='small'
-                      sx={{
-                        fontSize: '13px',
-                        color: '#1d9bf0',
-                        height: '20px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        '& .MuiRating-iconEmpty': {
-                          color: '#1d9bf0',
-                        },
-                      }}
-                      value={formatAsPercentage(movie.vote_average)}
-                    />
-                    <p style={{ color: '#999' }}>{movie.vote_average}</p>
-                  </div>
-                </div>
-              ))}
-          </div>
-
-          {loading && (
             <div
               style={{
                 display: 'flex',
+                flexWrap: 'wrap',
+                paddingLeft: 0,
+                alignItems: 'center',
                 justifyContent: 'center',
               }}
             >
-              <img
-                style={{ width: 50 }}
-                className='img360'
-                src={loadingimg}
-                alt='loading'
-              />
-            </div>
-          )}
+              {movies &&
+                movies.map((movie) => (
+                  <div className='index' key={movie.id}>
+                    {isLoading ? (
+                      <Link to={`/movie/${movie.id}`}>
+                        <LazyLoadImage
+                          effect='blur'
+                          className='Card'
+                          src={`${IMAGE_BASE_URL}w500${movie.poster_path}`}
+                          style={{
+                            backgroundColor: '#202124',
+                            width: '200px',
+                            border: 'none',
+                            height: '300px',
+                          }}
+                        />
+                      </Link>
+                    ) : (
+                      <img width={200} src={TesTEp} />
+                    )}
 
-          <br />
-          <HelmetProvider>
-            <Helmet>
-              <meta charSet='utf-8' />
-              <title>Most Popular Movies</title>
-            </Helmet>
-          </HelmetProvider>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            {hasNext ? (
-              <a
-                className='loadMore'
-                onClick={loadMoreItems}
-                disabled={loading}
+                    <div style={{}}>
+                      <motion.p
+                        variants={animations}
+                        initial='initial'
+                        animate='animate'
+                        exit='exit'
+                        style={{ marginBottom: '10px', marginTop: '5px' }}
+                      >
+                        {movie.title}
+                      </motion.p>
+
+                      <Rating
+                        precision={0.5}
+                        readOnly
+                        width={10}
+                        size='small'
+                        sx={{
+                          fontSize: '13px',
+                          color: '#1d9bf0',
+                          height: '20px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          '& .MuiRating-iconEmpty': {
+                            color: '#1d9bf0',
+                          },
+                        }}
+                        value={formatAsPercentage(movie.vote_average)}
+                      />
+                      <p style={{ color: '#999' }}>{movie.vote_average}</p>
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            {loading && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
               >
                 <img
-                  src={loading}
-                  alt=''
-                  style={{ marginTop: '30px', marginBottom: '50px' }}
+                  style={{ width: 50 }}
+                  className='img360'
+                  src={loadingimg}
+                  alt='loading'
                 />
-              </a>
-            ) : (
-              <div>
-                Showing {counts.total_results} of {counts.total_results} Movies
               </div>
             )}
+
+            <br />
+            <HelmetProvider>
+              <Helmet>
+                <meta charSet='utf-8' />
+                <title>Most Popular Movies</title>
+              </Helmet>
+            </HelmetProvider>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              {hasNext ? (
+                <a
+                  className='loadMore'
+                  onClick={loadMoreItems}
+                  disabled={loading}
+                >
+                  <img
+                    src={loading}
+                    alt=''
+                    style={{ marginTop: '30px', marginBottom: '50px' }}
+                  />
+                </a>
+              ) : (
+                <div>
+                  Showing {counts.total_results} of {counts.total_results}{' '}
+                  Movies
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </Transitions>
   );
 }
 export default PopularMovies;

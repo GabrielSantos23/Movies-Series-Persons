@@ -27,10 +27,15 @@ import Director from '../components/components-home/director';
 import Recommendations from '../components/Recommendations';
 import Skeleton from 'react-loading-skeleton';
 import zIndex from '@mui/material/styles/zIndex';
+import Transitions from '../components/Transitions';
+import axios from 'axios';
+import { BiPlay } from 'react-icons/bi';
+
 const imageUrl = import.meta.env.VITE_IMG;
 const moviesURL = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
 const Background = import.meta.env.VITE_URL_BACKGROUND;
+const Video = import.meta.env.VITE_VIDEO_LINK;
 
 const MovieDiv = styled.div`
   width: 100%;
@@ -68,19 +73,8 @@ const Back = styled.div`
     align-items: center;
   }
 `;
-const Overview = styled.p`
-  max-width: 700px;
-  margin-top: 20px;
-  letter-spacing: 0px;
-  font-size: 17px;
-  line-height: 27.6px;
-  maxwidth: '100%';
-  display: -webkit-box;
-  webkitboxorient: vertical;
-  webkitlineclamp: 2;
-  overflow: hidden;
-  textoverflow: ellipsis;
-
+const Overview = styled(LinesEllipsis)`
+  margin-bottom: 20px;
   @media (max-width: 868px) {
     display: none;
   }
@@ -156,13 +150,26 @@ const TextAll = styled.div`
   @media (max-width: 1268px) {
   }
 `;
-
+const TrailerDiv = styled.div`
+  a {
+    margin-top: 10px;
+    display: flex;
+    font-size: 15px;
+    align-items: center;
+    justify-content: center;
+    background-color: #202124;
+    width: 150px;
+    height: 40px;
+    font-weight: bold;
+  }
+`;
 const ContentPrinc = styled.div``;
 
 const Movie = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [trailer, setTrailer] = useState([]);
 
   useEffect(() => {
     setTimeout(async () => {
@@ -173,6 +180,19 @@ const Movie = () => {
       setIsLoading(false);
     }, 500);
   }, []);
+
+  useEffect(() => {
+    axios.get(`${moviesURL}${id}/videos?${apiKey}`).then((response) => {
+      const results = response.data.results;
+      setTrailer(results);
+    });
+  }, []);
+
+  const filter = trailer?.filter((e) => {
+    return e?.type === 'Trailer' && e?.site === 'YouTube';
+  });
+
+  const filter2 = filter[0];
 
   const formatCurrency = (number) => {
     return number.toLocaleString('en-US', {
@@ -197,264 +217,288 @@ const Movie = () => {
   const formatAsPercentage = (x) => `${(Math.round(x * 10) * 5) / 100}`;
   const navigate = useNavigate();
   return (
-    <MovieDiv>
-      {isLoading ? (
-        <MovieSkeleton />
-      ) : (
-        <>
-          {movie && (
-            <>
-              <Back>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <button
-                    style={{
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                    }}
-                    onClick={() => navigate(-1)}
-                  >
-                    <IoIosArrowBack
-                      style={{ color: 'white', fontSize: '2rem', zIndex: '10' }}
-                    />
-                  </button>
-                </div>
-                <div>
-                  <p>{movie.title}</p>
-                </div>
-                <div style={{ color: '#000' }}>_</div>
-              </Back>
-              <Content>
-                <Banner>
-                  <TextDiv>
-                    <div
+    <Transitions>
+      <MovieDiv>
+        {isLoading ? (
+          <MovieSkeleton />
+        ) : (
+          <>
+            {movie && (
+              <>
+                <Back>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <button
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        position: 'absolute',
-                        right: 0,
-                        width: '97%',
-                        height: '100%',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
                       }}
+                      onClick={() => navigate(-1)}
                     >
-                      <TextAll style={{ marginBottom: '30px' }}>
-                        <Title style={{}}>
-                          {movie.title || <Skeleton width={200} height={20} />}
-                        </Title>
-                        <div
-                          style={{
-                            display: 'flex',
-                            gap: '10px',
-                            alignItems: 'center',
-                            color: '#999',
-                          }}
-                        >
-                          <Rating
-                            precision={0.5}
-                            readOnly
-                            size='small'
-                            sx={{
-                              fontSize: '20px',
-                              color: '#1d9bf0',
-                              height: '20px',
+                      <IoIosArrowBack
+                        style={{
+                          color: 'white',
+                          fontSize: '2rem',
+                          zIndex: '10',
+                        }}
+                      />
+                    </button>
+                  </div>
+                  <div>
+                    <p>{movie.title}</p>
+                  </div>
+                  <div style={{ color: '#000' }}>_</div>
+                </Back>
+                <Content>
+                  <Banner>
+                    <TextDiv>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          position: 'absolute',
+                          right: 0,
+                          width: '97%',
+                          height: '100%',
+                        }}
+                      >
+                        <TextAll style={{ marginBottom: '30px' }}>
+                          <Title style={{}}>
+                            {movie.title || (
+                              <Skeleton width={200} height={20} />
+                            )}
+                          </Title>
+                          <div
+                            style={{
                               display: 'flex',
+                              gap: '10px',
                               alignItems: 'center',
-                              '& .MuiRating-iconEmpty': {
-                                color: '#1d9bf0',
-                              },
-                            }}
-                            value={formatAsPercentage(movie.vote_average)}
-                          />
-                          <p style={{}}>{movie.vote_count} Reviews</p>
-                          <p>{movie.release_date}</p>
-                        </div>
-
-                        <Overview
-                          style={{
-                            width: '600px',
-                            height: '100px',
-                            marginTop: '20px',
-                          }}
-                        >
-                          {movie.overview}
-                        </Overview>
-                      </TextAll>
-                    </div>
-                  </TextDiv>
-                  <FilterDiv
-                    style={{
-                      backgroundImage: `url(${
-                        Background + movie.backdrop_path
-                      })`,
-                    }}
-                  >
-                    <HelmetProvider>
-                      <Helmet>
-                        <title>{movie.title}</title>
-                      </Helmet>
-                    </HelmetProvider>
-                    <ImgDiv></ImgDiv>
-                  </FilterDiv>
-                </Banner>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    position: 'absolute',
-                    right: 0,
-                    width: '97%',
-                  }}
-                >
-                  <STabs style={{ width: '100%' }}>
-                    <StabList
-                      id='TabList'
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <STab
-                        style={{ zIndex: '2' }}
-                        selectedClassName='is-selected'
-                      >
-                        OVERVIEW
-                      </STab>
-                      <STab
-                        style={{ zIndex: '2' }}
-                        selectedClassName='is-selected'
-                      >
-                        VIDEOS
-                      </STab>
-                      <STab
-                        style={{ zIndex: '2' }}
-                        selectedClassName='is-selected'
-                      >
-                        PHOTOS
-                      </STab>
-                    </StabList>
-                    <STabPanel>
-                      <ul>
-                        <li>
-                          <img
-                            src={imageUrl + movie.poster_path}
-                            alt=''
-                            style={{
-                              width: '300px',
-                              marginRight: 20,
-                              backgroundColor: '#202124',
-                            }}
-                          />
-                        </li>
-                      </ul>
-                      <ul className='description'>
-                        <li style={{ maxWidth: '1000px' }}>
-                          <h2 style={{ paddingBottom: 20 }}>Storyline</h2>
-                          <p
-                            className=''
-                            style={{
-                              fontSize: 15,
-                              maxWidth: '70%',
+                              color: '#999',
                             }}
                           >
-                            {movie.overview}
-                          </p>
-                        </li>
-                        <div style={{ display: 'flex' }}>
-                          <ul style={{ marginTop: 10 }}>
-                            <li style={{ marginTop: 10 }}>
-                              <p>Released</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>Runtime</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>Director</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>Budget</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>Revenue</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>Genre</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>Status</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>Language</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>Production</p>
-                            </li>
-                          </ul>
-                          <ul style={{ marginLeft: 40, marginTop: 10 }}>
-                            <li style={{ marginTop: 10 }}>
-                              <p>{movie.status}</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>{timeConvert(movie.runtime)}</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <Director />
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>{formatCurrency(movie.budget)}</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>{formatCurrency(movie.revenue)}</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <Genere />
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>{movie.status}</p>
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <Lenguage />
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <Production />
-                            </li>
-                            <li style={{ marginTop: 10 }}>
-                              <p>{movie.last_air_date}</p>
-                            </li>
-                          </ul>
-                        </div>
-                      </ul>
-                      <div>
-                        <h2
-                          style={{
-                            marginTop: '40px',
-                            marginBottom: '-50px',
-                            fontWeight: '300',
-                          }}
-                        >
-                          Cast
-                        </h2>
-                        <Actors />
-                      </div>
-                      <div>
-                        <Recommendations />
-                      </div>
-                    </STabPanel>
-                    <TabPanel>
-                      <Videos />
-                    </TabPanel>
-                    <TabPanel>
-                      <Images />
-                    </TabPanel>
-                  </STabs>
-                </div>
+                            <Rating
+                              precision={0.5}
+                              readOnly
+                              size='small'
+                              sx={{
+                                fontSize: '20px',
+                                color: '#1d9bf0',
+                                height: '20px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                '& .MuiRating-iconEmpty': {
+                                  color: '#1d9bf0',
+                                },
+                              }}
+                              value={formatAsPercentage(movie.vote_average)}
+                            />
+                            <p style={{}}>{movie.vote_count} Reviews</p>
+                            <p>{movie.release_date}</p>
+                          </div>
 
-                <ContentPrinc></ContentPrinc>
-              </Content>
-            </>
-          )}
-        </>
-      )}
-    </MovieDiv>
+                          <Overview
+                            style={{
+                              maxWidth: '600px',
+                              fontSize: '15px',
+                              marginTop: '20px',
+                            }}
+                            text={movie.overview}
+                            maxLine='3'
+                            ellipsis='...'
+                            trimRight
+                            basedOn='letters'
+                          />
+
+                          <TrailerDiv style={{}}>
+                            {filter2 && (
+                              <a
+                                rel='noopener noreferrer'
+                                target='_blank'
+                                href={Video + filter2.key}
+                              >
+                                <BiPlay width={40} />
+                                Watch Trailer
+                              </a>
+                            )}
+                          </TrailerDiv>
+                        </TextAll>
+                      </div>
+                    </TextDiv>
+                    <FilterDiv
+                      style={{
+                        backgroundImage: `url(${
+                          Background + movie.backdrop_path
+                        })`,
+                      }}
+                    >
+                      <HelmetProvider>
+                        <Helmet>
+                          <title>{movie.title}</title>
+                        </Helmet>
+                      </HelmetProvider>
+                      <ImgDiv></ImgDiv>
+                    </FilterDiv>
+                  </Banner>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      position: 'absolute',
+                      right: 0,
+                      width: '97%',
+                    }}
+                  >
+                    <STabs style={{ width: '100%' }}>
+                      <StabList
+                        id='TabList'
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <STab
+                          style={{ zIndex: '2' }}
+                          selectedClassName='is-selected'
+                        >
+                          OVERVIEW
+                        </STab>
+                        <STab
+                          style={{ zIndex: '2' }}
+                          selectedClassName='is-selected'
+                        >
+                          VIDEOS
+                        </STab>
+                        <STab
+                          style={{ zIndex: '2' }}
+                          selectedClassName='is-selected'
+                        >
+                          PHOTOS
+                        </STab>
+                      </StabList>
+                      <STabPanel>
+                        <ul>
+                          <li>
+                            <img
+                              src={imageUrl + movie.poster_path}
+                              alt=''
+                              style={{
+                                width: '300px',
+                                marginRight: 20,
+                                backgroundColor: '#202124',
+                              }}
+                            />
+                          </li>
+                        </ul>
+                        <ul className='description'>
+                          <li style={{ maxWidth: '1000px' }}>
+                            <h2 style={{ paddingBottom: 20 }}>Storyline</h2>
+                            <p
+                              className=''
+                              style={{
+                                fontSize: 15,
+                                maxWidth: '70%',
+                              }}
+                            >
+                              {movie.overview}
+                            </p>
+                          </li>
+                          <div style={{ display: 'flex' }}>
+                            <ul style={{ marginTop: 10 }}>
+                              <li style={{ marginTop: 10 }}>
+                                <p>Released</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>Runtime</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>Director</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>Budget</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>Revenue</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>Genre</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>Status</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>Language</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>Production</p>
+                              </li>
+                            </ul>
+                            <ul style={{ marginLeft: 40, marginTop: 10 }}>
+                              <li style={{ marginTop: 10 }}>
+                                <p>{movie.status}</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>{timeConvert(movie.runtime)}</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <Director />
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>{formatCurrency(movie.budget)}</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>{formatCurrency(movie.revenue)}</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <Genere />
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>{movie.status}</p>
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <Lenguage />
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <Production />
+                              </li>
+                              <li style={{ marginTop: 10 }}>
+                                <p>{movie.last_air_date}</p>
+                              </li>
+                            </ul>
+                          </div>
+                        </ul>
+                        <div>
+                          <h2
+                            style={{
+                              marginTop: '40px',
+                              marginBottom: '-50px',
+                              fontWeight: '300',
+                            }}
+                          >
+                            Cast
+                          </h2>
+                          <Actors />
+                        </div>
+                        <div>
+                          <Recommendations />
+                        </div>
+                      </STabPanel>
+                      <TabPanel>
+                        <Videos />
+                      </TabPanel>
+                      <TabPanel>
+                        <Images />
+                      </TabPanel>
+                    </STabs>
+                  </div>
+
+                  <ContentPrinc></ContentPrinc>
+                </Content>
+              </>
+            )}
+          </>
+        )}
+      </MovieDiv>
+    </Transitions>
   );
 };
 
